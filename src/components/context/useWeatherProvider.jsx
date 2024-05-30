@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import React from 'react';
 import useFetchQuery from '../hooks/useFetchData';

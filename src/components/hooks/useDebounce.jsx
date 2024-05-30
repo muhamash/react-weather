@@ -23,6 +23,8 @@ const useDebounce = ( callback, delay ) =>
                 clearTimeout( timeoutRef );
         }
         
+        console.log( timeoutRef, args, callback, delay )
+        
         timeoutRef.current = setTimeout( () =>
         {
             callback( ...args )

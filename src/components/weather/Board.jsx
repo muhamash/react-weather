@@ -1,16 +1,11 @@
 /* eslint-disable no-unused-vars */
 // import React from 'react'
-import { useWeatherContext } from '../context/useWeatherProvider';
 import AddFav from './AddFav';
 import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
 
 export default function Board ()
 {
-
-    const { data, error, loading } = useWeatherContext();
-    console.log(data)
-
     return (
         <div className="container">
             <div className="grid bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 px-4 lg:px-14 py-6 lg:py-10 min-h-[520px] max-w-[1058px] mx-auto">

@@ -3,8 +3,13 @@ import HumidityIcon from "../../assets/icons/humidity.svg";
 import TempMaxIcon from "../../assets/icons/temp-max.svg";
 import TempMinIcon from "../../assets/icons/temp-min.svg";
 import WindIcon from "../../assets/icons/wind.svg";
+import { useWeatherContext } from "../context/useWeatherProvider";
 
-export default function WeatherDetails() {
+export default function WeatherDetails ()
+{
+    const { data } = useWeatherContext();
+    console.log( data.days[0] );
+
     return (
         <div>
             <p className="text-sm lg:text-lg font-bold uppercase mb-8">thunderstorm with light drizzle</p>

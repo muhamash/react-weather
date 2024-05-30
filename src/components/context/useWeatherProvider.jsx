@@ -6,7 +6,8 @@ import useFetchQuery from '../hooks/useFetchData';
 const DataWeather = React.createContext();
 
 const WeatherProvider = ({children, queryUrl})=> {
-    const query = useFetchQuery(queryUrl);
+    const query = useFetchQuery( queryUrl );
+    console.log(query)
 
     return (
         <DataWeather.Provider value={query}>

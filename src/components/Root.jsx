@@ -17,7 +17,7 @@ export default function Root() {
   const [climateImage, setClimateImage] = React.useState("");
   const { data: weather, isLoading, isError } = useFetchQuery({
     queryKey: ['weatherCity'],
-    url: 'dhaka'
+    url: 'Thakurgaon'
   });
 
   function getBackgroundImage(climate) {
@@ -42,13 +42,6 @@ export default function Root() {
         return ClearSkyImage;
     }
   }
-
-  // React.useEffect(() => {
-  //   if (weather &&  weather.days[0] && weather.days[0].icon) {
-  //     const bgImage = getBackgroundImage(weather.data.days[0].icon);
-  //     setClimateImage(bgImage);
-  //   }
-  // }, [weather.days[0].icon]);
 
   if (isLoading) {
     return (

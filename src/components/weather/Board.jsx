@@ -15,7 +15,7 @@ export default function Board ({data})
                 <div className="grid md:grid-cols-2 gap-10 md:gap-6">
                     <AddFav />
                     <WeatherHead data={data} />
-                    <WeatherDetails />
+                    <WeatherDetails data={data} />
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { PacmanLoader } from 'react-spinners';
-import ClearSkyImage from "../assets/backgrounds/few-clouds.jpg";
+import { default as ClearSkyImage, default as FewCloudsImage } from "../assets/backgrounds/few-clouds.jpg";
 import MistImage from "../assets/backgrounds/mist.jpeg";
 import RainyDayImage from "../assets/backgrounds/rainy-day.jpg";
 import ScatterdCloudsImage from "../assets/backgrounds/scattered-clouds.jpg";
@@ -14,7 +14,7 @@ import useFetchQuery from './hooks/useFetchData';
 import Board from './weather/Board';
 
 export default function Root() {
-  const [climateImage, setClimateImage] = React.useState(ClearSkyImage);
+  const [climateImage, setClimateImage] = React.useState("");
   const { data: weather, isLoading, isError } = useFetchQuery({
     queryKey: ['weatherCity'],
     url: 'dhaka'
@@ -43,12 +43,12 @@ export default function Root() {
     }
   }
 
-  React.useEffect(() => {
-    if (weather && weather.data && weather.data.days[0] && weather.data.days[0].icon) {
-      const bgImage = getBackgroundImage(weather.data.days[0].icon);
-      setClimateImage(bgImage);
-    }
-  }, [weather]);
+  // React.useEffect(() => {
+  //   if (weather &&  weather.days[0] && weather.days[0].icon) {
+  //     const bgImage = getBackgroundImage(weather.data.days[0].icon);
+  //     setClimateImage(bgImage);
+  //   }
+  // }, [weather.days[0].icon]);
 
   if (isLoading) {
     return (
@@ -64,7 +64,7 @@ export default function Root() {
 
   return (
     <div
-      style={{ backgroundImage: `url('${climateImage}')` }}
+      style={{ backgroundImage: `url('${getBackgroundImage(weather.days[0].icon)}')` }}
       className="grid place-items-center h-screen bg-no-repeat bg-cover"
     >
       <Header />

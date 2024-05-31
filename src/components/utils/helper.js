@@ -1,47 +1,52 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable no-undef */
-const getBackgroundImage = ( climate ) =>
+const getImage = ( climate ) =>
 {
     switch ( climate )
     {
-        case "Rain":
+        case "rain":
             return RainyDayImage;
-        case "Clouds":
+        case "clouds":
             return ScatteredCloudsImage;
-        case "Clear":
+        case "clear":
             return ClearSkyImage;
-        case "Snow":
+        case "snow":
             return SnowImage;
-        case "Thunder":
+        case "thunder":
             return ThunderStormImage;
-        case "Fog":
+        case "fog":
             return WinterImage;
-        case "Haze":
+        case "haze":
             return FewCloudsImage;
-        case "Mist":
+        case "mist":
             return MistImage;
         default:
             return ClearSkyImage;
     }
 };
 
-// function getFormattedDateTime() {
-//     const months = [
-//         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-//         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-//     ];
-//     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+function getFormattedDateTime({ date = new Date() }) {
+    const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-//     const currentDate = new Date();
-//     const year = currentDate.getFullYear();
-//     const month = months[currentDate.getMonth()];
-//     const dayOfWeek = days[currentDate.getDay()];
-//     const dayOfMonth = currentDate.getDate();
-//     const hours = String(currentDate.getHours()).padStart(2, '0');
-//     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const currentDate = new Date(date);
+    const year = currentDate.getFullYear();
+    const month = months[currentDate.getMonth()];
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
 
-//     return `${hours}:${minutes} - ${dayOfWeek}, ${dayOfMonth} ${month} '${year.toString().slice(-2)}`;
-// }
+    return `${hours}:${minutes} - ${dayOfWeek}, ${dayOfMonth} ${month} '${year.toString().slice(-2)}`;
+}
+
+// Example usage
+console.log(getFormattedDateTime({ date: '2024-05-31T14:45:00Z' }));
+console.log(getFormattedDateTime({}));
+
 
 // console.log(getFormattedDateTime());
 
@@ -62,4 +67,5 @@ const retrieveData = async ( url ) =>
     }
 };
 
-export { getBackgroundImage, retrieveData };
+export { getFormattedDateTime, getImage, retrieveData };
+

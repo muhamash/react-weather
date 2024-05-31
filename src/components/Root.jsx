@@ -9,16 +9,24 @@ import ScatterdCloudsImage from "../assets/backgrounds/scattered-clouds.jpg";
 import SnowImage from "../assets/backgrounds/sunny.jpg";
 import ThunderStormImage from "../assets/backgrounds/thunderstorm.jpg";
 import WinterImage from "../assets/backgrounds/winter.jpg";
+import { useFetch } from './context/useFetch';
 import Header from './header/Header';
-import useFetchQuery from './hooks/useFetchData';
 import Board from './weather/Board';
 
 export default function Root() {
   const [climateImage, setClimateImage] = React.useState("");
-  const { data: weather, isLoading, isError } = useFetchQuery({
-    queryKey: ['weatherCity'],
-    url: 'Thakurgaon'
-  });
+  // const { data: weather, isLoading, isError } = useFetchQuery({
+  //   queryKey: ['weatherCity'],
+  //   url: 'Thakurgaon'
+  // });
+
+  const { data, error, isLoading, setEndpoint } = useFetch();
+
+  console.log(data, error, isLoading, setEndpoint)
+  React.useEffect( () =>
+  {
+    setEndpoint( [ 'city' ], 'thakurgaon' );
+  }, [ setEndpoint ] );
 
   function getBackgroundImage(climate) {
     switch (climate) {
@@ -51,27 +59,27 @@ export default function Root() {
     );
   }
 
-  if (isError) {
-    return <p>Error: {isError.message}</p>;
+  if (error) {
+    return <p>Error: {error.message}</p>;
   }
 
   return (
-    <div
-      style={ {
-        backgroundImage: `url('${getBackgroundImage( weather.days[ 0 ].icon )}')`,
-        // backdropFilter: 'brightness(.5)',
-        // filter: 'brightness(50%)',
-      } }
-      className="grid brightness-110 place-items-center h-screen bg-no-repeat bg-cover"
-    >
-      <Header />
-      <main className="">
-        <ErrorBoundary fallback={<p>Component has an error, you may reload it</p>}>
-          <React.Suspense fallback={<p>Loading...</p>}>
-            <Board data={weather} />
-          </React.Suspense>
-        </ErrorBoundary>
-      </main>
-    </div>
+    <ErrorBoundary fallback={<p>something went wrong!!</p>}>
+      <div
+        style={ {
+          backgroundImage: `url('${getBackgroundImage( data.days[ 0 ].icon )}')`,
+        } }
+        className="grid brightness-110 place-items-center h-screen bg-no-repeat bg-cover"
+      >
+        <Header />
+        <main className="">
+          <ErrorBoundary fallback={ <p>Component has an error, you may reload it</p> }>
+            <React.Suspense fallback={ <p>Loading...</p> }>
+              <Board data={ data } />
+            </React.Suspense>
+          </ErrorBoundary>
+        </main>
+      </div>
+    </ErrorBoundary>
   );
 }

@@ -5,6 +5,8 @@ import Root from "./components/Root";
 
 // console.log(queryUrl)
 
+
+
 export default function App ()
 {
   return (

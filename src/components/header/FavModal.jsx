@@ -1,9 +1,8 @@
-/* eslint-disable react/display-name */
-import { forwardRef } from 'react';
+// import React from 'react';
 
-const FavModal = forwardRef((props, ref) => {
+export default function FavModal() {
     return (
-        <div ref={ref} className="max-w-xs py-4 bg-white rounded-md border-[1px] border-sky-500 absolute right-0 top-16 text-black shadow-lg">
+        <div className="max-w-xs py-4 bg-white rounded-md border-[1px] border-sky-500 absolute right-0 top-16 text-black shadow-lg ">
             <h3 className="text-lg font-mono text-rose-500 px-4">Favorite Locations</h3>
             <ul className="space-y-2 mt-4 *:py-2 *:px-4 *:cursor-pointer">
                 <li className="hover:bg-sky-400 hover:text-white text-center">Dhaka</li>
@@ -12,6 +11,4 @@ const FavModal = forwardRef((props, ref) => {
             </ul>
         </div>
     );
-});
-
-export default FavModal;
+}

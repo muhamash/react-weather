@@ -1,35 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import { useCallback } from 'react';
 
-const useDebounce = ( callback, delay ) =>
-{
-    const timeoutRef = React.useRef( null );
-
-    React.useEffect( () =>
+function useDebounce(callback, delay) {
+    const debounceCallback = useCallback( ( ...args ) =>
     {
+        const handler = setTimeout( () =>
+        {
+            callback( ...args );
+        }, delay );
+
         return () =>
         {
-            if ( timeoutRef.current )
-            {
-                clearTimeout( timeoutRef );
-            }
-        }
-    }, [] );
-
-    const debounceCallback = ( ...args ) =>
-    {
-        if ( timeoutRef.current )
-            {
-                clearTimeout( timeoutRef );
-        }
-        
-        console.log( timeoutRef, args, callback, delay )
-        
-        timeoutRef.current = setTimeout( () =>
-        {
-            callback( ...args )
-        }, delay );
-    }
+            clearTimeout( handler );
+        };
+    }, [ callback, delay ] );
 
     return debounceCallback;
 }

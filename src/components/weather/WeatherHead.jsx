@@ -1,18 +1,48 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
+import CloudIcon from "../../assets/cloud.svg";
+import HazeIcon from "../../assets/haze.svg";
+import SnowIcon from "../../assets/icons/snow.svg";
+import SunnyIcon from "../../assets/icons/sunny.svg";
 import PinIcon from "../../assets/pin.svg";
+import RainIcon from "../../assets/rainy.svg";
+import ThunderIcon from "../../assets/thunder.svg";
 
 export default function WeatherHead({data}) {
+
+    function getWeatherIcon(climate) {
+        switch (climate) {
+            case "rain":
+                return RainIcon;
+            case "clouds":
+                return CloudIcon;
+            case "clear":
+                return SunnyIcon;
+            case "snow":
+                return SnowIcon;
+            case "thunder":
+                return ThunderIcon;
+            case "fog":
+                return HazeIcon;
+            case "haze":
+                return HazeIcon;
+            case "mist":
+                return HazeIcon;
+
+            default:
+                return SunnyIcon;
+        }
+    }
 
     return (
         <div>
             <div className="max-md:flex items-center justify-between md:-mt-10">
-                <img src="../../assets/cloud.svg" alt="climateIcon?" />
+                <img src={getWeatherIcon(data.days[0].icon)} alt="climateIcon?" />
                 <div className="max-md:flex items-center max-md:space-x-4">
-                    <h1 className="text-[60px] lg:text-[80px] xl:text-[100px] leading-none md:mb-4">{data.temp} F</h1>
+                    <h1 className="text-[40px] lg:text-[60px] xl:text-[80px] leading-none md:mb-4">{data.days[0].temp} F</h1>
                     <div className="flex items-center space-x-4 md:mb-4">
                         <img src={PinIcon} />
-                        <h2 className="text-2xl lg:text-[50px]">{/* Access and display location information here */}</h2>
+                        <h2 className="text-2xl lg:text-[50px]">{ data.address }</h2>
                     </div>
                 </div>
             </div>

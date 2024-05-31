@@ -64,11 +64,15 @@ export default function Root() {
 
   return (
     <div
-      style={{ backgroundImage: `url('${getBackgroundImage(weather.days[0].icon)}')` }}
-      className="grid place-items-center h-screen bg-no-repeat bg-cover"
+      style={ {
+        backgroundImage: `url('${getBackgroundImage( weather.days[ 0 ].icon )}')`,
+        // backdropFilter: 'brightness(.5)',
+        // filter: 'brightness(50%)',
+      } }
+      className="grid brightness-110 place-items-center h-screen bg-no-repeat bg-cover"
     >
       <Header />
-      <main>
+      <main className="">
         <ErrorBoundary fallback={<p>Component has an error, you may reload it</p>}>
           <React.Suspense fallback={<p>Loading...</p>}>
             <Board data={weather} />

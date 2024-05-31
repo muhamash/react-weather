@@ -43,10 +43,6 @@ function getFormattedDateTime({ date = new Date() }) {
     return `${hours}:${minutes} - ${dayOfWeek}, ${dayOfMonth} ${month} '${year.toString().slice(-2)}`;
 }
 
-// Example usage
-console.log(getFormattedDateTime({ date: '2024-05-31T14:45:00Z' }));
-console.log(getFormattedDateTime({}));
-
 
 // console.log(getFormattedDateTime());
 

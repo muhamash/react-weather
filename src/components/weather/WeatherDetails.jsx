@@ -12,7 +12,7 @@ export default function WeatherDetails ({data})
 
     return (
         <div>
-            <p className="text-sm lg:text-lg   mb-8 ">Today's brief: <span className="text-red-700 font-mono uppercase">{ data.days[ 0 ].description }</span></p>
+            <p className="text-sm lg:text-lg brightness-105   mb-8 ">Today's brief: <span className="text-red-700 font-mono uppercase">{ data.days[ 0 ].description }</span></p>
             <ul className="space-y-6 lg:space-y-6">
                 <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
                     <span>Temp max</span>

@@ -36,7 +36,7 @@ export default function WeatherHead({data}) {
     }
 
     return (
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between brightness-110">
             <div className="max-md:flex items-center justify-between md:-mt-10">
                 <img src={ getWeatherIcon( data.days[ 0 ].icon ) } alt="climateIcon?" />
                 <div className="max-md:flex items-center max-md:space-x-4">

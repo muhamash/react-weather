@@ -1,23 +1,27 @@
 /* eslint-disable no-useless-catch */
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-const retrieveData = async (url) => {
-    try {
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = await response.json();
-            return data.days[0];
-        } else {
-            throw new Error(`Failed to fetch data. Status: ${response.status}`);
+const retrieveData = async ( url ) =>
+{
+    try
+    {
+        const response = await axios.get( url );
+        if ( !response.ok )
+        {
+            console.log( response, response.data, response.data.days )
+            return response.data.days[0];
         }
-    } catch (err) {
-        console.log(err)
+    }
+    catch ( err )
+    {
+        throw err
     }
 };
 
 const useFetchQuery = ({
     queryKey = [],
-    url = '',
+    url = url,
     staleTime = 3000,
     cacheTime = 2000,
     retry = 3,

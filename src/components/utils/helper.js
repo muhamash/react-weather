@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 /* eslint-disable no-undef */
 const getBackgroundImage = ( climate ) =>
 {
@@ -6,7 +7,7 @@ const getBackgroundImage = ( climate ) =>
         case "Rain":
             return RainyDayImage;
         case "Clouds":
-            return ScatterdCloudsImage;
+            return ScatteredCloudsImage;
         case "Clear":
             return ClearSkyImage;
         case "Snow":
@@ -44,5 +45,21 @@ const getBackgroundImage = ( climate ) =>
 
 // console.log(getFormattedDateTime());
 
+const retrieveData = async ( url ) =>
+{
+    try
+    {
+        const response = await axios.get( url );
+        if ( !response.ok )
+        {
+            console.log( response, response.data, response.data.days )
+            return response.data.days[0];
+        }
+    }
+    catch ( err )
+    {
+        throw err
+    }
+};
 
-export { getBackgroundImage, getFormattedDateTime };
+export { getBackgroundImage, retrieveData };

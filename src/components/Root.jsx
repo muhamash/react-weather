@@ -22,11 +22,24 @@ export default function Root() {
 
   const { data, error, isLoading, setEndpoint } = useFetch();
 
-  console.log(data, error, isLoading, setEndpoint)
-  React.useEffect( () =>
-  {
+  console.log(data, error,setEndpoint)
+  
+React.useEffect(() => {
     setEndpoint( [ 'city' ], 'thakurgaon' );
-  }, [ setEndpoint ] );
+    // setClimateImage(climate)
+    }, [setEndpoint]);
+
+    // if (isLoading) {
+    //     return (
+    //         <div className="flex justify-center items-center py-20">
+    //             <PacmanLoader size={130} color="#3390c4" />
+    //         </div>
+    //     );
+    // }
+
+    // if (error) {
+    //     return <p>Error: {error.message}</p>;
+    // }
 
   function getBackgroundImage(climate) {
     switch (climate) {
@@ -51,35 +64,39 @@ export default function Root() {
     }
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <PacmanLoader size={130} color="#3390c4" />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center py-20">
+  //       <PacmanLoader size={130} color="#3390c4" />
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
+  // if (error) {
+  //   return <p>Error: {error.message}</p>;
+  // }
 
   return (
     <ErrorBoundary fallback={<p>something went wrong!!</p>}>
-      <div
-        style={ {
-          backgroundImage: `url('${getBackgroundImage( data.days[ 0 ].icon )}')`,
-        } }
-        className="grid brightness-110 place-items-center h-screen bg-no-repeat bg-cover"
-      >
-        <Header />
-        <main className="">
-          <ErrorBoundary fallback={ <p>Component has an error, you may reload it</p> }>
-            <React.Suspense fallback={ <p>Loading...</p> }>
-              <Board data={ data } />
-            </React.Suspense>
-          </ErrorBoundary>
-        </main>
-      </div>
-    </ErrorBoundary>
+            <div
+                style={{
+                    backgroundImage: `url('${data ? (getBackgroundImage(data.days[0].icon)):(getBackgroundImage())}')`,
+                }}
+                className="grid brightness-110 place-items-center h-screen bg-no-repeat bg-cover"
+            >
+                <Header />
+                <main className="">
+                    <ErrorBoundary fallback={<p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-400 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Search Your Desire City In the Input box</p>}>
+                            {isLoading ? (
+                                <div className="flex justify-center items-center py-20">
+                                    <PacmanLoader size={130} color="#3390c4" />
+                                </div>
+                            ) : (
+                                <Board data={data} />
+                            )}
+                    </ErrorBoundary>
+                </main>
+            </div>
+      </ErrorBoundary>
   );
 }

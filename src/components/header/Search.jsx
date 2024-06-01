@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import { useState } from 'react';
 import SearchIcon from "../../assets/search.svg";
 import { useFetch } from "../context/useFetch";
@@ -15,7 +14,7 @@ export default function Search() {
     const handleChange = (e) => {
         e.preventDefault();
         const term = e.target.value;
-        setSearchTerm(term); 
+        setSearchTerm(term);
         debounceSearch(term);
     };
 

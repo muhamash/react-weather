@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 // import React from 'react'
 import AddFav from './AddFav';
-import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
 
 export default function Board ({data})
@@ -15,7 +14,7 @@ export default function Board ({data})
                 <div className="grid md:grid-cols-2 gap-10 md:gap-6">
                     <AddFav />
                     <WeatherHead data={data} />
-                    <WeatherDetails data={data} />
+                    {/* <WeatherDetails data={data} /> */}
                 </div>
             </div>
         </div>

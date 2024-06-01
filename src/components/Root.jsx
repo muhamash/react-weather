@@ -15,31 +15,11 @@ import Board from './weather/Board';
 
 export default function Root() {
   const [climateImage, setClimateImage] = React.useState("");
-  // const { data: weather, isLoading, isError } = useFetchQuery({
-  //   queryKey: ['weatherCity'],
-  //   url: 'Thakurgaon'
-  // });
 
-  const { data, error, isLoading, setEndpoint } = useFetch();
+  const { data, error, isLoading } = useFetch();
 
-  console.log(data, error,setEndpoint)
-  
-React.useEffect(() => {
-    setEndpoint( [ 'city' ], 'thakurgaon' );
-    // setClimateImage(climate)
-    }, [setEndpoint]);
+  console.log(data, error, isLoading)
 
-    // if (isLoading) {
-    //     return (
-    //         <div className="flex justify-center items-center py-20">
-    //             <PacmanLoader size={130} color="#3390c4" />
-    //         </div>
-    //     );
-    // }
-
-    // if (error) {
-    //     return <p>Error: {error.message}</p>;
-    // }
 
   function getBackgroundImage(climate) {
     switch (climate) {
@@ -86,7 +66,7 @@ React.useEffect(() => {
             >
                 <Header />
                 <main className="">
-                    <ErrorBoundary fallback={<p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-400 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Search Your Desire City In the Input box</p>}>
+                    <ErrorBoundary fallback={<p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">something went wrong reload it!</p>}>
                             {isLoading ? (
                                 <div className="flex justify-center items-center py-20">
                                     <PacmanLoader size={130} color="#3390c4" />

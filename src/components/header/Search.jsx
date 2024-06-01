@@ -5,11 +5,13 @@ import useDebounce from "../hooks/useDebounce";
 
 export default function Search() {
     const { setEndpoint } = useFetch();
+    console.log( setEndpoint );
+    
     const [searchTerm, setSearchTerm] = useState('');
 
     const debounceSearch = useDebounce((term) => {
         setEndpoint(['search', term], term);
-    }, 1000);
+    }, 2000);
 
     const handleChange = (e) => {
         e.preventDefault();

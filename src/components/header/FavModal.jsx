@@ -1,13 +1,16 @@
 // import React from 'react';
-
-export default function FavModal() {
+import { useFav } from '../hooks/useFav';
+export default function FavModal ()
+{
+    const { fav } = useFav();
+    console.log(fav)
     return (
-        <div className="max-w-xs py-4 bg-white rounded-md border-[1px] border-sky-500 absolute right-0 top-16 text-black shadow-lg ">
+        <div className="max-w-xs py-4 bg-white mix-blend-multiply bg-opacity-70 rounded-md border-[1px] transition-all duration-150 ease-in-out border-sky-500 absolute right-0 top-16 text-black shadow-lg ">
             <h3 className="text-lg font-mono text-rose-500 px-4">Favorite Locations</h3>
             <ul className="space-y-2 mt-4 *:py-2 *:px-4 *:cursor-pointer">
-                <li className="hover:bg-sky-400 hover:text-white text-center">Dhaka</li>
-                <li className="hover:bg-gray-200">Rangpur</li>
-                <li className="hover:bg-gray-200">Europe</li>
+                { fav.map( ( f, index ) => (
+                    <li key={ index }>{ f }</li>
+                ))}
             </ul>
         </div>
     );

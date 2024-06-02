@@ -13,7 +13,7 @@ export default function Board ({data})
         <>
             {
             data ? (
-            <div className="container">
+            <div className="container my-10">
             <div className="grid bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 px-4 lg:px-14 py-6 lg:py-10 min-h-[520px] max-w-[1058px] mx-auto">
                 <div className="grid md:grid-cols-2 gap-10 md:gap-6">
                     <AddFav />

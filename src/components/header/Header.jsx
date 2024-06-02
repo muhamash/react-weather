@@ -15,7 +15,7 @@ export default function Header ()
           <Search />
           <Fav onShow={ () => setSHow( !show ) } />
           {
-            show && <FavModal />
+            show && <FavModal onShow={()=>setSHow(!show)}/>
           }
         </div>
       </nav>

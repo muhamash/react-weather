@@ -7,8 +7,6 @@ import WeatherHead from './WeatherHead';
 
 export default function Board ({data})
 {
-    
-
     return (
         <>
             {

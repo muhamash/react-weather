@@ -7,6 +7,7 @@ import SunnyIcon from "../../assets/icons/sunny.svg";
 import PinIcon from "../../assets/pin.svg";
 import RainIcon from "../../assets/rainy.svg";
 import ThunderIcon from "../../assets/thunder.svg";
+import { getFormattedDateTime } from "../utils/helper";
 
 export default function WeatherHead({data}) {
 
@@ -47,8 +48,7 @@ export default function WeatherHead({data}) {
                 </div>
                 <div>
                     <p className="text-sm lg:text-lg">
-                        {/* { getFormattedDateTime( data.time ) } */ }
-                        {data.time}
+                          { getFormattedDateTime( data.time ) } 
                     </p>
                 </div>
             </div>

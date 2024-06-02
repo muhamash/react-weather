@@ -2,7 +2,7 @@
 /* eslint-disable no-useless-catch */
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useCallback, useEffect, useState } from 'react';
-import { retrieveData, reverseGeocode } from '../utils/helper';
+import { retrieveData, reverseGeocode, temp } from '../utils/helper';
 
 export const FetchContext = createContext();
 
@@ -37,17 +37,18 @@ export function FetchProvider({ children }) {
   const { data, error, isLoading } = useQuery({
     queryKey: ['weatherData', location],
     queryFn: retrieveData,
+    retry: 2,
     enabled: !!location,
   });
 
   const weatherData = data ? {
     city: data.resolvedAddress,
-    temperature: data.days[0].temp,
+    temperature: temp(data.currentConditions.temp),
     maxTemperature: data.days[0].tempmax,
     minTemperature: data.days[0].tempmin,
     cloudPercentage: data.days[0].cloudcover,
     wind: data.days[0].windspeed,
-    time: data.days[0].datetime,
+    time: data.currentConditions?.datetimeEpoch,
     description: data.days[0].description,
     humidity: data.days[0].humidity,
     brief: data.description,

@@ -26,14 +26,21 @@ const getImage = ( climate ) =>
     }
 };
 
-function getFormattedDateTime({ date = new Date() }) {
+function getFormattedDateTime ( datetimeEpoch ) {
     const months = [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+    
+    const currentDate = new Date(datetimeEpoch * 1000);
 
-    const currentDate = new Date(date);
+    if ( isNaN( currentDate ) )
+    {
+        console.log(typeof  datetimeEpoch, typeof currentDate)
+        throw new Error('Invalid date');
+    }
+
     const year = currentDate.getFullYear();
     const month = months[currentDate.getMonth()];
     const dayOfWeek = days[currentDate.getDay()];
@@ -47,21 +54,27 @@ function getFormattedDateTime({ date = new Date() }) {
 
 // console.log(getFormattedDateTime());
 
-const retrieveData = async (city) => {
-  const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city.queryKey[1]}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
+const retrieveData = async ( city ) =>
+{
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city.queryKey[ 1 ]}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
 
-    console.log(url, city)
-  try {
-    const response = await axios.get(url);
-    if (response.status === 200) {
-      console.log("weather data response", response);
-      return response.data;
-    } else {
-      throw new Error(`Something went wrong in retrieve function: ${response.statusText}`);
+    console.log( url, city )
+    try
+    {
+        const response = await axios.get( url );
+        if ( response.status === 200 )
+        {
+            console.log( "weather data response", response.data );
+            return response.data;
+        }
+        else
+        {
+            throw new Error( `Something went wrong in retrieve function: ${response.statusText}` );
+        }
+    } catch ( error )
+    {
+        throw error;
     }
-  } catch (error) {
-    throw error;
-  }
 };
 
 const reverseGeocode = async ( latitude, longitude ) =>
@@ -78,8 +91,9 @@ const reverseGeocode = async ( latitude, longitude ) =>
             // const { city } = response.data.results[ 0 ].components;
             // console.log( city );
             // console.log(typeof response.data.results[ 0 ].components.city)
-            return  response.data.results[ 0 ].components.city;
-        } else
+            return response.data.results[ 0 ].components.city;
+        }
+        else
         {
             throw new Error( 'Reverse geocoding failed' );
         }
@@ -89,5 +103,11 @@ const reverseGeocode = async ( latitude, longitude ) =>
     }
 };
 
-export { getFormattedDateTime, getImage, retrieveData, reverseGeocode };
+const temp = ( t ) =>
+{
+    const celsius = ( ( t - 32 ) * 5 ) / 9;
+    return celsius.toFixed(1)
+};
+
+export { getFormattedDateTime, getImage, retrieveData, reverseGeocode, temp };
 

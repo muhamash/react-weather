@@ -52,7 +52,7 @@ export default function Root() {
       className=" brightness-110 place-items-center bg-no-repeat bg-cover h-screen"
     >
       <Header/>
-      <main className="my-20">
+      <main className="my-10">
         <ErrorBoundary fallback={<p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p>}>
           {isLoading ? (
             <div className="flex justify-center items-center py-20">

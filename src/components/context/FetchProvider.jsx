@@ -31,16 +31,16 @@ export function FetchProvider({ children }) {
 
   const setEndpoint = useCallback( ( endpoint ) =>
   {
-    console.log("Endpoint:", endpoint);
-    setLocation(endpoint);
-  }, []);
+    console.log( "Endpoint:", endpoint );
+    setLocation( endpoint );
+  }, [] );
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['weatherData', location],
+  const { data, error, isLoading } = useQuery( {
+    queryKey: [ 'weatherData', location ],
     queryFn: retrieveData,
     retry: 2,
     enabled: !!location,
-  });
+  } );
 
   const weatherData = data ? {
     city: data.resolvedAddress,

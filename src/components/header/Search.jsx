@@ -6,9 +6,10 @@ export default function Search() {
     const { setEndpoint } = useFetch();
     // console.log( setEndpoint );
 
-    const debounceSearch = useDebounce((term) => {
-        setEndpoint( term);
-    }, 1000);
+    const debounceSearch = useDebounce( ( term ) =>
+    {
+        setEndpoint( term );
+    }, 1000 );
 
     const handleChange = (e) => {
         e.preventDefault();

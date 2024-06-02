@@ -35,17 +35,20 @@ const retrieveData = async ({ queryKey }) => {
 export function FetchProvider({ children }) {
   const [location, setLocation] = useState({ latitude: null, longitude: null, endpoint: "" });
 
-  useEffect(() => {
-    if (!location.endpoint) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLocation({
+  useEffect( () =>
+  {
+    if ( !location.endpoint )
+    {
+      navigator.geolocation.getCurrentPosition( ( position ) =>
+      {
+        setLocation( {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           endpoint: ""
-        });
-      });
+        } );
+      } );
     }
-  }, [location.endpoint]);
+  }, [ location.endpoint ] );
 
   const setEndpoint = (endpoint) => {
     setLocation((prevLocation) => ({
@@ -61,17 +64,24 @@ export function FetchProvider({ children }) {
   });
 
   const weatherData = data
-    ? {
-        location: data.address,
-        city: data.resolvedAddress,
-        temperature: data.days[0].temp,
-        maxTemperature: data.days[0].tempmax,
-        minTemperature: data.days[0].tempmin,
-        cloudPercentage: data.days[0].cloudcover,
-        wind: data.days[0].windspeed,
-        time: data.days[0].datetime,
-      }
-    : {};
+    ?
+    {
+      location: data.address,
+      city: data.resolvedAddress,
+      temperature: data.days[ 0 ].temp,
+      maxTemperature: data.days[ 0 ].tempmax,
+      minTemperature: data.days[ 0 ].tempmin,
+      cloudPercentage: data.days[ 0 ].cloudcover,
+      wind: data.days[ 0 ].windspeed,
+      time: data.days[ 0 ].datetime,
+      description: data.days[ 0 ].description,
+      humidity: data.days[ 0 ].humidity,
+      brief: data.description,
+      icon: data.days[ 0 ].icon,
+      
+    }
+    :
+    {};
 
   console.log(weatherData);
 

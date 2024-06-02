@@ -63,20 +63,24 @@ export default function Root() {
   return (
     <div
       style={ {
-        // backgroundImage: `url('${data ? ( getBackgroundImage( data.days[ 0 ].icon ) ) : ( getBackgroundImage() )}')`,
+        backgroundImage: `url('${weatherData ? ( getBackgroundImage( weatherData.icon ) ) : ( getBackgroundImage() )}')`,
       } }
       className="grid brightness-110 place-items-center h-screen bg-no-repeat bg-cover"
     >
       <Header/>
       <main className="">
-        <ErrorBoundary fallback={ <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">something went wrong reload it!</p> }>
-          { isLoading ? (
+        <ErrorBoundary fallback={<p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p>}>
+          {isLoading ? (
             <div className="flex justify-center items-center py-20">
-              <PacmanLoader size={ 130 } color="#3390c4" />
+              <PacmanLoader size={130} color="#3390c4" />
             </div>
+          ) : error ? (
+            <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Error: {error.message} / May be i have got wrong inputs from search field</p>
+          ) : weatherData && Object.keys(weatherData).length > 0 ? (
+            <Board data={weatherData} />
           ) : (
-            <Board data={ weatherData } />
-          ) }
+            <p>No data</p>
+          )}
         </ErrorBoundary>
       </main>
     </div>

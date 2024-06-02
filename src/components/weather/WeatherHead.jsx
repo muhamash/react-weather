@@ -7,7 +7,6 @@ import SunnyIcon from "../../assets/icons/sunny.svg";
 import PinIcon from "../../assets/pin.svg";
 import RainIcon from "../../assets/rainy.svg";
 import ThunderIcon from "../../assets/thunder.svg";
-import { getFormattedDateTime } from "../utils/helper";
 
 export default function WeatherHead({data}) {
 
@@ -38,23 +37,24 @@ export default function WeatherHead({data}) {
     return (
         <div className="flex flex-col justify-between brightness-110">
             <div className="max-md:flex flex-wrap gap-3 items-center justify-between md:-mt-10">
-                <img src={ getWeatherIcon( "" ) } alt="climateIcon?" />
+                <img src={ getWeatherIcon( data.icon ) } alt="climateIcon?" />
                 <div className="max-md:flex items-center max-md:space-x-4">
                     <h1 className="text-[30px] lg:text-[40px] xl:text-[60px] leading-none md:mb-4">{ data.temperature} F</h1>
                     <div className="flex items-center space-x-4 md:mb-4">
                         <img src={ PinIcon } />
-                        <h2 className="text-2xl leading-tight text-yellow-800 ">{ data.resolvedAddress
+                        <h2 className="text-2xl leading-tight text-yellow-800 ">{ data.city
                         }</h2>
                     </div>
                 </div>
                 <div>
                     <p className="text-sm lg:text-lg">
-                        { getFormattedDateTime( "" ) }
+                        {/* { getFormattedDateTime( data.time ) } */ }
+                        {data.time}
                     </p>
                 </div>
             </div>
             
-            <p className="text-sm lg:text-lg text-blue-900">{ data.city }</p>
+            <p className="text-sm lg:text-lg text-blue-900">{ data.description }</p>
         </div>
     );
 }

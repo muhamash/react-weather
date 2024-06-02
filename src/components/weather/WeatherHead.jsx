@@ -42,7 +42,7 @@ export default function WeatherHead({data}) {
                     <h1 className="text-[30px] lg:text-[40px] xl:text-[60px] leading-none md:mb-4">{ data.temperature} F</h1>
                     <div className="flex items-center space-x-4 md:mb-4">
                         <img src={ PinIcon } />
-                        <h2 className="text-2xl leading-tight text-yellow-800 ">{ data.city
+                        <h2 className="text-2xl leading-tight text-yellow-800 ">{ data.location
                         }</h2>
                     </div>
                 </div>

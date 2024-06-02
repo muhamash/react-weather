@@ -18,7 +18,7 @@ export default function Root() {
 
   const { weatherData, error, isLoading } = useFetch();
 
-  console.log(weatherData, error, isLoading)
+  // console.log(weatherData, error, isLoading)
 
 
   function getBackgroundImage(climate) {

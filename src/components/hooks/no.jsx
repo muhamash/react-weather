@@ -1,68 +1,102 @@
-/* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { LocationContext } from '../context';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react';
 
-const fetchWeatherData = async ({ queryKey }) => {
+const retrieveData = async ({ queryKey }) => {
   const [_, params] = queryKey;
-  const { latitude, longitude, city } = params;
+  const { latitude, longitude, endpoint } = params;
 
   let url;
-  if (city) {
-    url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`;
+  if (endpoint) {
+    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${endpoint}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
   } else {
-    url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`;
+    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude},${longitude}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
   }
 
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Fetching weather data failed: ${response.status}`);
+  try {
+    const response = await axios.get(url);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error(`Something went wrong in retrieve function: ${response.statusText}`);
+    }
+  } catch (error) {
+    throw error;
   }
-  return response.json();
 };
 
-const useWeatherQuery = (city = '') => {
-  const { selectedLocation } = useContext(LocationContext);
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
+const reverseGeocode = async (latitude, longitude) => {
+  const apiKey = 'YOUR_OPENCAGE_API_KEY'; // Replace with your OpenCage API key
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
+
+  try {
+    const response = await axios.get(url);
+    if (response.status === 200 && response.data.results.length > 0) {
+      const { city, town, village } = response.data.results[0].components;
+      return city || town || village || 'Unknown location';
+    } else {
+      throw new Error('Reverse geocoding failed');
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const useWeather = () => {
+  const [location, setLocation] = useState({ latitude: null, longitude: null, endpoint: '' });
+  const [address, setAddress] = useState('');
+
+  const fetchLocation = useCallback(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        endpoint: '',
+      });
+    });
+  }, []);
 
   useEffect(() => {
-    if (!city && selectedLocation.latitude && selectedLocation.longitude) {
-      setLocation(selectedLocation);
-    } else if (!city) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+    if (!location.endpoint && !location.latitude && !location.longitude) {
+      fetchLocation();
+    } else if (location.latitude && location.longitude) {
+      reverseGeocode(location.latitude, location.longitude)
+        .then((locationName) => {
+          setAddress(locationName);
+        })
+        .catch((err) => {
+          console.error(err);
         });
-      });
     }
-  }, [selectedLocation, city]);
+  }, [ location.endpoint]);
 
-  const { data, error, isLoading } = useQuery(
-    ['weatherData', { latitude: location.latitude, longitude: location.longitude, city }],
-    fetchWeatherData,
-    {
-      enabled: city || (location.latitude && location.longitude), // Only fetch when we have a city or location
-    }
-  );
+  const setEndpoint = useCallback((endpoint) => {
+    setLocation((prevLocation) => ({
+      ...prevLocation,
+      endpoint: endpoint,
+    }));
+  }, []);
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['weatherData', { latitude: location.latitude, longitude: location.longitude, endpoint: location.endpoint }],
+    queryFn: retrieveData,
+    enabled: !!location.endpoint || (!!location.latitude && !!location.longitude),
+  });
 
   const weatherData = data
     ? {
-        location: data.name,
-        climate: data.weather[0].main,
-        temperature: data.main.temp,
-        maxTemperature: data.main.temp_max,
-        minTemperature: data.main.temp_min,
-        humidity: data.main.humidity,
-        cloudPercentage: data.clouds.all,
-        wind: data.wind.speed,
-        time: data.dt,
-        longitude: data.coord.lon,
-        latitude: data.coord.lat,
+        location: address || data.address,
+        city: data.resolvedAddress || address,
+        temperature: data.days[0].temp,
+        maxTemperature: data.days[0].tempmax,
+        minTemperature: data.days[0].tempmin,
+        cloudPercentage: data.days[0].cloudcover,
+        wind: data.days[0].windspeed,
+        time: data.days[0].datetime,
       }
     : {};
 
-  return { weatherData, error, isLoading };
+  return { weatherData, error, isLoading, setEndpoint };
 };
 
-export default useWeatherQuery;
+export default useWeather;

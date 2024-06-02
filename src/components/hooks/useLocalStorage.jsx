@@ -6,7 +6,7 @@ const useLocalStorage = (storageValue, storageKey) =>
         JSON.parse( localStorage.getItem( storageKey ) ) ?? storageValue
     );
 
-    console.log( value );
+    console.log( value, storageKey, storageValue );
 
     React.useEffect( () =>
     {

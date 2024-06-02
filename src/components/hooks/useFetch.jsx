@@ -1,5 +1,5 @@
 import React from 'react';
-import { FetchContext } from './FetchProvider';
+import { FetchContext } from '../context/FetchProvider';
 
 export function useFetch() {
     const context = React.useContext(FetchContext);

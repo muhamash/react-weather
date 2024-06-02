@@ -9,8 +9,8 @@ import ScatterdCloudsImage from "../assets/backgrounds/scattered-clouds.jpg";
 import SnowImage from "../assets/backgrounds/sunny.jpg";
 import ThunderStormImage from "../assets/backgrounds/thunderstorm.jpg";
 import WinterImage from "../assets/backgrounds/winter.jpg";
-import { useFetch } from './context/useFetch';
 import Header from './header/Header';
+import { useFetch } from './hooks/useFetch';
 import Board from './weather/Board';
 
 export default function Root() {

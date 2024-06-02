@@ -1,6 +1,6 @@
 import SearchIcon from "../../assets/search.svg";
-import { useFetch } from "../context/useFetch";
 import useDebounce from "../hooks/useDebounce";
+import { useFetch } from "../hooks/useFetch";
 
 export default function Search() {
     const { setEndpoint } = useFetch();

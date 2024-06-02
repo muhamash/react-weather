@@ -16,9 +16,10 @@ export function FetchProvider({ children }) {
     {
       const city = await reverseGeocode( position.coords.latitude, position.coords.longitude );
       setLocation( city );
-    }, ( error ) =>
+    },
+      ( error ) =>
     {
-      console.error( 'Error fetching location', error );
+      console.error( 'failed to reverse the geoLocation', error );
     } );
   }, [] );
 

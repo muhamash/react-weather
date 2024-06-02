@@ -69,6 +69,7 @@ export function FetchProvider({ children }) {
     humidity: data.current.humidity,
     brief: data.current.condition.text,
     icon: data.current.condition.icon,
+    climate: data.forecast.forecastday[0].day.condition.icon
   } : {};
 
 

@@ -53,7 +53,12 @@ export default function WeatherHead({data}) {
                 </div>
             </div>
             
-            <p className="text-sm lg:text-lg text-blue-900">{ data.description }</p>
+            <div className="flex flex-col-reverse">
+                <p className="text-sm lg:text-lg text-blue-900">{ data.description }</p>
+                {
+                    data.climate && (<img className="w-[35px] h-[35px]" src={data.climate} alt="" />)
+                }
+            </div>
         </div>
     );
 }

@@ -44,42 +44,26 @@ export default function Root() {
     }
   }
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex justify-center items-center py-20">
-  //       <PacmanLoader size={130} color="#3390c4" />
-  //     </div>
-  //   );
-  // }
-
-  // if (error) {
-  //   return <p>Error: {error.message}</p>;
-  // }
-  // useEffect(() => {
-  //       const bgImage = getBackgroundImage(weatherData.climate);
-  //       setClimateImage(bgImage);
-  //   }, [weatherData.climate]);
-
   return (
     <div
       style={ {
         backgroundImage: `url('${weatherData ? ( getBackgroundImage( weatherData.icon ) ) : ( getBackgroundImage() )}')`,
       } }
-      className="grid brightness-110 place-items-center h-screen bg-no-repeat bg-cover py-5"
+      className=" brightness-110 place-items-center bg-no-repeat bg-cover h-screen"
     >
       <Header/>
-      <main className="my-10">
+      <main className="my-20">
         <ErrorBoundary fallback={<p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p>}>
           {isLoading ? (
             <div className="flex justify-center items-center py-20">
-              <PacmanLoader size={130} color="#3390c4" />
+              <PacmanLoader size={120} color="#3390c4" />
             </div>
           ) : error ? (
-            <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Error: {error.message} / May be i have got wrong inputs from search field</p>
+            <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Error: {error.message} / May be i have got wrong inputs from the search field</p>
           ) : weatherData && Object.keys(weatherData).length > 0 ? (
             <Board data={weatherData} />
           ) : (
-            <p>No data</p>
+            <p className="text-lg text-red-500 text-center">No data</p>
           )}
         </ErrorBoundary>
       </main>

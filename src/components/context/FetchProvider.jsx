@@ -2,7 +2,7 @@
 /* eslint-disable no-useless-catch */
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useCallback, useEffect, useState } from 'react';
-import { retrieveData, reverseGeocode, temp } from '../utils/helper';
+import { retrieveData, reverseGeocode } from '../utils/helper';
 
 export const FetchContext = createContext();
 
@@ -42,19 +42,35 @@ export function FetchProvider({ children }) {
     enabled: !!location,
   } );
 
+  // const weatherData = data ? {
+  //   city: data.resolvedAddress,
+  //   temperature: temp(data.currentConditions.temp),
+  //   maxTemperature: temp(data.days[0].tempmax),
+  //   minTemperature: temp(data.days[0].tempmin),
+  //   cloudPercentage: data.days[0].cloudcover,
+  //   wind: data.days[0].windspeed,
+  //   time: data.currentConditions?.datetimeEpoch,
+  //   description: data.days[0].description,
+  //   humidity: data.days[0].humidity,
+  //   brief: data.description,
+  //   icon: data.days[0].icon,
+  // } : {};
+  
   const weatherData = data ? {
-    city: data.resolvedAddress,
-    temperature: temp(data.currentConditions.temp),
-    maxTemperature: temp(data.days[0].tempmax),
-    minTemperature: temp(data.days[0].tempmin),
-    cloudPercentage: data.days[0].cloudcover,
-    wind: data.days[0].windspeed,
-    time: data.currentConditions?.datetimeEpoch,
-    description: data.days[0].description,
-    humidity: data.days[0].humidity,
-    brief: data.description,
-    icon: data.days[0].icon,
+    city: data.location.name,
+    region:data.location.country,
+    temperature: data.current.temp_c,
+    maxTemperature: data.current.feelslike_c,
+    minTemperature: data.current.dewpoint_c,
+    cloudPercentage: data.current.cloud,
+    wind: data.current.wind_kph,
+    time: data.location.localtime_epoch,
+    description: data.forecast.forecastday[0].day.condition.text,
+    humidity: data.current.humidity,
+    brief: data.current.condition.text,
+    icon: data.current.condition.text,
   } : {};
+
 
   console.log(weatherData, error, isLoading);
 

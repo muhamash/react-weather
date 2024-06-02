@@ -1,21 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
-const retrieveData = async ({ queryKey }) => {
-  const [_, params] = queryKey;
-  const { latitude, longitude, endpoint } = params;
+export const FetchContext = createContext();
 
-  let url;
-  if (endpoint) {
-    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${endpoint}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
-  } else {
-    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude},${longitude}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
-  }
+const retrieveData = async (city) => {
+  const baseUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
+  const apiKey = '4KCCBKNJQFYH8DKD2FMZQHBBT';
+  const url = `${baseUrl}${city}?key=${apiKey}`;
 
   try {
     const response = await axios.get(url);
     if (response.status === 200) {
+      console.log("weather data response", response);
       return response.data;
     } else {
       throw new Error(`Something went wrong in retrieve function: ${response.statusText}`);
@@ -26,14 +23,16 @@ const retrieveData = async ({ queryKey }) => {
 };
 
 const reverseGeocode = async (latitude, longitude) => {
-  const apiKey = 'YOUR_OPENCAGE_API_KEY'; // Replace with your OpenCage API key
-  const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
+  const apiKey = '80c5c52c4b00481bb5e049bc1be477de';
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}%2C${longitude}&key=${apiKey}`;
 
   try {
     const response = await axios.get(url);
-    if (response.status === 200 && response.data.results.length > 0) {
-      const { city, town, village } = response.data.results[0].components;
-      return city || town || village || 'Unknown location';
+    if (response.status === 200) {
+      console.log("reverse geo location", response.data.results[0].components);
+      const { city } = response.data.results[0].components;
+      console.log(city);
+      return city;
     } else {
       throw new Error('Reverse geocoding failed');
     }
@@ -42,61 +41,53 @@ const reverseGeocode = async (latitude, longitude) => {
   }
 };
 
-const useWeather = () => {
-  const [location, setLocation] = useState({ latitude: null, longitude: null, endpoint: '' });
-  const [address, setAddress] = useState('');
+export function FetchProvider({ children }) {
+  const [location, setLocation] = useState("");
 
   const fetchLocation = useCallback(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        endpoint: '',
-      });
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const city = await reverseGeocode(position.coords.latitude, position.coords.longitude);
+      setLocation(city);
+    }, (error) => {
+      console.error('Error fetching location', error);
     });
   }, []);
 
   useEffect(() => {
-    if (!location.endpoint && !location.latitude && !location.longitude) {
+    if (!location) {
       fetchLocation();
-    } else if (location.latitude && location.longitude) {
-      reverseGeocode(location.latitude, location.longitude)
-        .then((locationName) => {
-          setAddress(locationName);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
     }
-  }, [ location.endpoint]);
+  }, [location, fetchLocation]);
 
   const setEndpoint = useCallback((endpoint) => {
-    setLocation((prevLocation) => ({
-      ...prevLocation,
-      endpoint: endpoint,
-    }));
+    setLocation(endpoint);
   }, []);
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ['weatherData', { latitude: location.latitude, longitude: location.longitude, endpoint: location.endpoint }],
+    queryKey: ['weatherData', location],
     queryFn: retrieveData,
-    enabled: !!location.endpoint || (!!location.latitude && !!location.longitude),
+    enabled: !!location,
   });
 
-  const weatherData = data
-    ? {
-        location: address || data.address,
-        city: data.resolvedAddress || address,
-        temperature: data.days[0].temp,
-        maxTemperature: data.days[0].tempmax,
-        minTemperature: data.days[0].tempmin,
-        cloudPercentage: data.days[0].cloudcover,
-        wind: data.days[0].windspeed,
-        time: data.days[0].datetime,
-      }
-    : {};
+  const weatherData = data ? {
+    city: data.resolvedAddress,
+    temperature: data.days[0].temp,
+    maxTemperature: data.days[0].tempmax,
+    minTemperature: data.days[0].tempmin,
+    cloudPercentage: data.days[0].cloudcover,
+    wind: data.days[0].windspeed,
+    time: data.days[0].datetime,
+    description: data.days[0].description,
+    humidity: data.days[0].humidity,
+    brief: data.description,
+    icon: data.days[0].icon,
+  } : {};
 
-  return { weatherData, error, isLoading, setEndpoint };
-};
+  console.log(weatherData, error, isLoading);
 
-export default useWeather;
+  return (
+    <FetchContext.Provider value={{ weatherData, error, isLoading, setEndpoint }}>
+      {children}
+    </FetchContext.Provider>
+  );
+}

@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-catch */
+import axios from 'axios';
 /* eslint-disable no-undef */
 const getImage = ( climate ) =>
 {
@@ -46,22 +47,47 @@ function getFormattedDateTime({ date = new Date() }) {
 
 // console.log(getFormattedDateTime());
 
-const retrieveData = async ( url ) =>
+const retrieveData = async (city) => {
+  const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city.queryKey[1]}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
+
+    console.log(url, city)
+  try {
+    const response = await axios.get(url);
+    if (response.status === 200) {
+      console.log("weather data response", response);
+      return response.data;
+    } else {
+      throw new Error(`Something went wrong in retrieve function: ${response.statusText}`);
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const reverseGeocode = async ( latitude, longitude ) =>
 {
+    const apiKey = '80c5c52c4b00481bb5e049bc1be477de';
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}%2C${longitude}&key=${apiKey}`;
+
     try
     {
         const response = await axios.get( url );
-        if ( !response.ok )
+        if ( response.status === 200 )
         {
-            console.log( response, response.data, response.data.days )
-            return response.data.days[0];
+            console.log( "reverse geo location", response.data.results[ 0 ].components );
+            // const { city } = response.data.results[ 0 ].components;
+            // console.log( city );
+            // console.log(typeof response.data.results[ 0 ].components.city)
+            return  response.data.results[ 0 ].components.city;
+        } else
+        {
+            throw new Error( 'Reverse geocoding failed' );
         }
-    }
-    catch ( err )
+    } catch ( error )
     {
-        throw err
+        throw error;
     }
 };
 
-export { getFormattedDateTime, getImage, retrieveData };
+export { getFormattedDateTime, getImage, retrieveData, reverseGeocode };
 

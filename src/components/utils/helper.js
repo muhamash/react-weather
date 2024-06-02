@@ -109,5 +109,9 @@ const temp = ( t ) =>
     return celsius.toFixed(1)
 };
 
+// const tempInFahrenheit = 86;
+// const tempInCelsius = temp(tempInFahrenheit);
+// console.log( `Temperature in Celsius: ${tempInCelsius.toFixed( 2 )}°C` );
+
 export { getFormattedDateTime, getImage, retrieveData, reverseGeocode, temp };
 

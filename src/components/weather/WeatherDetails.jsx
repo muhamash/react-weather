@@ -21,14 +21,14 @@ export default function WeatherDetails({ data }) {
                         <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
                             <span>Temp max</span>
                             <div className="inline-flex space-x-4">
-                                <p>{data.maxTemperature} F</p>
+                                <p>{data.maxTemperature} °C</p>
                                 <img src={TempMaxIcon} alt="temp-max" />
                             </div>
                         </li>
                         <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
                             <span>Temp min</span>
                             <div className="inline-flex space-x-4">
-                                <p>{data.minTemperature} F</p>
+                                <p>{data.minTemperature} °C</p>
                                 <img src={TempMinIcon} alt="temp-min" />
                             </div>
                         </li>

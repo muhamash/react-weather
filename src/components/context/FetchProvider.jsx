@@ -44,8 +44,8 @@ export function FetchProvider({ children }) {
   const weatherData = data ? {
     city: data.resolvedAddress,
     temperature: temp(data.currentConditions.temp),
-    maxTemperature: data.days[0].tempmax,
-    minTemperature: data.days[0].tempmin,
+    maxTemperature: temp(data.days[0].tempmax),
+    minTemperature: temp(data.days[0].tempmin),
     cloudPercentage: data.days[0].cloudcover,
     wind: data.days[0].windspeed,
     time: data.currentConditions?.datetimeEpoch,

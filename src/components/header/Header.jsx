@@ -4,9 +4,13 @@ import FavModal from './FavModal'
 import Logo from './Logo'
 import Search from './Search'
 
-export default function Header ()
-{
-  const [show, setSHow]= React.useState(false)
+export default function Header() {
+  const [show, setShow] = React.useState(false);
+
+  const handleClick = () => {
+    setShow(!show);
+  }
+
   return (
     <header className="w-full top-0 bg-gradient-to-b from-black/60 to-black/0 pb-10">
       <nav className="container flex items-center justify-between py-6">
@@ -14,10 +18,8 @@ export default function Header ()
         <div className="flex items-center gap-4">
           <Search />
           <div className="relative">
-            <Fav onShow={ () => setSHow( !show ) } />
-          {
-            show && <FavModal onShow={()=>setSHow(!show)}/>
-          }
+            <Fav onShow={handleClick} />
+            {show && <FavModal onShow={handleClick} />}
           </div>
         </div>
       </nav>

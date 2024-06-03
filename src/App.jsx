@@ -1,22 +1,28 @@
-// import React from 'react'
-import Root from "./components/Root";
-import FavoriteProvider from "./components/context/FavoriteProvider";
+import React from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import FavoriteProvider from './components/context/FavoriteProvider';
 import { FetchProvider } from './components/context/FetchProvider';
-// const queryUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/38.9697,-77.385?key=4KCCBKNJQFYH8DKD2FMZQHBBT';
+import Map from './components/map/Map';
+import Root from './components/Root';
 
-// console.log(queryUrl)
-
-
-
-export default function App ()
-{
+export default function App() {
+  const location = useLocation();
+  
   return (
-    <div>
-      <FetchProvider>
-        <FavoriteProvider>
-          <Root />
-        </FavoriteProvider>
-      </FetchProvider>
-    </div>
+    <React.Suspense fallback={<p>loading.....</p>}>
+      <Routes location={location} key={location.key}>
+        <Route
+          path="/"
+          element={
+            <FetchProvider>
+              <FavoriteProvider>
+                <Root />
+              </FavoriteProvider>
+            </FetchProvider>
+          }
+        />
+        <Route path="/map" element={ <Map/> } />
+      </Routes>
+    </React.Suspense>
   );
 }

@@ -20,7 +20,6 @@ export default function Root() {
 
   // console.log(weatherData, error, isLoading)
 
-
   function getBackgroundImage(climate) {
     switch (climate) {
       case "rain":
@@ -49,10 +48,10 @@ export default function Root() {
       style={ {
         backgroundImage: `url('${weatherData ? ( getBackgroundImage( weatherData.icon ) ) : ( getBackgroundImage() )}')`,
       } }
-      className=" brightness-110 place-items-center bg-no-repeat bg-cover h-screen"
+      className=" brightness-110 place-items-center bg-repeat bg-cover h-screen"
     >
       <Header/>
-      <main className="my-10">
+      <main className="my-5">
         <ErrorBoundary fallback={<p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p>}>
           {isLoading ? (
             <div className="flex justify-center items-center py-20">

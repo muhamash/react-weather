@@ -3,21 +3,21 @@
 import SearchIcon from "../../assets/search.svg";
 import useDebounce from "../hooks/useDebounce";
 import { useFetch } from "../hooks/useFetch";
-import { geocode } from "../utils/geoCode";
+// import { geocode } from "../utils/geoCode";
 
 export default function Search() {
     const { setEndpoint, setCoords } = useFetch();
 
-    const debounceSearch = useDebounce(async (term, coords) => {
+    const debounceSearch = useDebounce(async (term) => {
         setEndpoint(term);
-        setCoords(coords);
+        // setCoords({ latitude, longitude });
     }, 1000);
 
     const handleChange = async (e) => {
         e.preventDefault();
         const term = e.target.value;
-        const { latitude, longitude } = await geocode(term);
-        debounceSearch(term, { latitude, longitude });
+        // const { latitude, longitude } = await geocode(term);
+        debounceSearch(term);
     };
 
     return (

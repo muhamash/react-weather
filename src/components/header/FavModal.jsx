@@ -11,7 +11,15 @@ export default function FavModal({ onShow }) {
     // const handleClick = (e) => {
     //     e.stopPropagation();
     // };
-
+    const handleCLick = async (f) => {
+        try {
+            // const coords = await geocode(f);
+            setEndpoint(f);
+        } catch (error) {
+            console.error('Error in handleClick:', error);
+        }
+    };
+    
     return (
         <div onClick={onShow} className="max-w-xs py-4  bg-opacity-90  brightness-125 rounded-md  transition-all duration-150 ease-in-out absolute z-50 right-0 top-16 shadow-lg text-white hover:text-black  bg-black/20  backdrop-blur-md border-[1.2px] border-sky-500">
             <div>
@@ -20,7 +28,7 @@ export default function FavModal({ onShow }) {
                     <ul className="space-y-2 mt-4 *:py-2 *:px-4 *:cursor-pointer">
                         {fav.map((f, index) => (
                             <li
-                                onClick={() => setEndpoint(f)}
+                                onClick={()=>  handleCLick(f) }
                                 className=" hover:bg-slate-400"
                                 key={index}
                             >

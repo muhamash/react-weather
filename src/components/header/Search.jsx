@@ -1,20 +1,23 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import SearchIcon from "../../assets/search.svg";
 import useDebounce from "../hooks/useDebounce";
 import { useFetch } from "../hooks/useFetch";
+import { geocode } from "../utils/geoCode";
 
 export default function Search() {
-    const { setEndpoint } = useFetch();
-    // console.log( setEndpoint );
+    const { setEndpoint, setCoords } = useFetch();
 
-    const debounceSearch = useDebounce( ( term ) =>
-    {
-        setEndpoint( term );
-    }, 1000 );
+    const debounceSearch = useDebounce(async (term, coords) => {
+        setEndpoint(term);
+        setCoords(coords);
+    }, 1000);
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         e.preventDefault();
         const term = e.target.value;
-        debounceSearch(term);
+        const { latitude, longitude } = await geocode(term);
+        debounceSearch(term, { latitude, longitude });
     };
 
     return (

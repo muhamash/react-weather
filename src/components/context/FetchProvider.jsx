@@ -11,7 +11,6 @@ export function FetchProvider({ children }) {
   const [ location, setLocation ] = useState( "" );
   const [coords, setCoords] = useState({ latitude: null, longitude: null });
   
-  // const 
 
   const fetchLocation = useCallback( () =>
   {
@@ -83,7 +82,7 @@ export function FetchProvider({ children }) {
   console.log(weatherData, error, isLoading);
 
   return (
-    <FetchContext.Provider value={{ weatherData, error, isLoading, setEndpoint, coords }}>
+    <FetchContext.Provider value={{ weatherData, error, isLoading, setEndpoint, coords, setCoords }}>
       {children}
     </FetchContext.Provider>
   );

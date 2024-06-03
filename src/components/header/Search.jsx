@@ -8,9 +8,9 @@ import { geocode } from "../utils/geoCode";
 export default function Search() {
     const { setEndpoint, setCoords } = useFetch();
 
-    const debounceSearch = useDebounce(async (term, coords) => {
+    const debounceSearch = useDebounce(async (term, { latitude, longitude }) => {
         setEndpoint(term);
-        setCoords(coords);
+        setCoords({ latitude, longitude });
     }, 1000);
 
     const handleChange = async (e) => {

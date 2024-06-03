@@ -1,4 +1,3 @@
-// src/utils/geocode.js
 import axios from 'axios';
 
 export const geocode = async (location) => {

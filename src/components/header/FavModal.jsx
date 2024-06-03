@@ -2,11 +2,10 @@
 // import React from 'react';
 import { useFav } from '../hooks/useFav';
 import { useFetch } from '../hooks/useFetch';
-import { geocode } from '../utils/geoCode';
 
 export default function FavModal({ onShow }) {
     const { fav } = useFav();
-    const { setEndpoint, setCoords } = useFetch();
+    const { setEndpoint } = useFetch();
     console.log(fav);
 
     // const handleClick = (e) => {
@@ -14,14 +13,8 @@ export default function FavModal({ onShow }) {
     // };
     const handleCLick = async (f) => {
         try {
-            const coords = await geocode(f);
-            if (coords) {
-                const { latitude, longitude } = coords;
-                setEndpoint(f);
-                setCoords({ latitude, longitude });
-            } else {
-                console.error('Geocoding failed: no results found');
-            }
+            // const coords = await geocode(f);
+            setEndpoint(f);
         } catch (error) {
             console.error('Error in handleClick:', error);
         }

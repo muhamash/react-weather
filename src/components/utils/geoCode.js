@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export const geocode = async (location) => {
     try {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+
         const response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
             params: {
                 q: location,
@@ -9,6 +11,7 @@ export const geocode = async (location) => {
                 limit: 1
             }
         });
+        
         const data = response.data;
         if (data && data.length > 0) {
             const { lat, lon } = data[0];

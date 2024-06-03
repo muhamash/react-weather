@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { HashLoader, PacmanLoader, RotateLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 import AddFav from './AddFav';
 import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
@@ -21,14 +21,14 @@ export default function Board ({data})
                                 <AddFav />
                                 <WeatherHead data={ data } />
                                 <WeatherDetails data={ data } />
-                                <div className="w-fit bg-slate-300 p-1 shadow-md rounded-md">
+                                {/* <div className="w-fit bg-slate-300 p-1 shadow-md rounded-md">
                                     <p className="text-cyan-900 text-md bg-white text-center">Get update the wind direction!</p>
                                     <React.Suspense fallback = {<PacmanLoader size={120} color="#3390c4" />}>
                                         {
                                             Container ? (<Container/>):(<RotateLoader color="#36d7b7" />)
                                         }
                                     </React.Suspense>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import FavoriteProvider from './components/context/FavoriteProvider';
 import { FetchProvider } from './components/context/FetchProvider';
-import Map from './components/map/Map';
+import Container from './components/map/Container';
 import Root from './components/Root';
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
             </FetchProvider>
           }
         />
-        <Route path="/map" element={ <Map/> } />
+        <Route path="/map" element={ <Container/> } />
       </Routes>
     </React.Suspense>
   );

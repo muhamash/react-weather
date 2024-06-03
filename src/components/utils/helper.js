@@ -83,6 +83,7 @@ const retrieveData = async ( city ) =>
 
 const reverseGeocode = async ( latitude, longitude ) =>
 {
+    console.log(latitude, longitude)
     const apiKey = '80c5c52c4b00481bb5e049bc1be477de';
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}%2C${longitude}&key=${apiKey}`;
 

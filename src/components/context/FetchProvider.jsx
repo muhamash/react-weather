@@ -8,19 +8,26 @@ export const FetchContext = createContext();
 
 
 export function FetchProvider({ children }) {
-  const [location, setLocation] = useState("");
+  const [ location, setLocation ] = useState( "" );
+  const [coords, setCoords] = useState({ latitude: null, longitude: null });
+  
+  // const 
 
   const fetchLocation = useCallback( () =>
   {
-    navigator.geolocation.getCurrentPosition( async ( position ) =>
-    {
-      const city = await reverseGeocode( position.coords.latitude, position.coords.longitude );
-      setLocation( city );
-    },
+    navigator.geolocation.getCurrentPosition(
+      async ( position ) =>
+      {
+        const { latitude, longitude } = position.coords;
+        const city = await reverseGeocode( latitude, longitude );
+        setLocation( city );
+        setCoords( { latitude, longitude } );
+      },
       ( error ) =>
-    {
-      console.error( 'failed to reverse the geoLocation', error );
-    } );
+      {
+        console.error( 'Failed to reverse geolocation', error );
+      }
+    );
   }, [] );
 
   useEffect(() => {
@@ -76,7 +83,7 @@ export function FetchProvider({ children }) {
   console.log(weatherData, error, isLoading);
 
   return (
-    <FetchContext.Provider value={{ weatherData, error, isLoading, setEndpoint }}>
+    <FetchContext.Provider value={{ weatherData, error, isLoading, setEndpoint, coords }}>
       {children}
     </FetchContext.Provider>
   );

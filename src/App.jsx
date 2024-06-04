@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import FavoriteProvider from './components/context/FavoriteProvider';
+import { FavoriteProvider } from './components/context/FavoriteProvider';
 import { FetchProvider } from './components/context/FetchProvider';
+import { RainProvider } from './components/context/RainProvider';
 import Root from './components/Root';
 
 export default function App() {
@@ -15,7 +16,9 @@ export default function App() {
           element={
             <FetchProvider>
               <FavoriteProvider>
-                <Root />
+                <RainProvider>
+                  <Root />
+                </RainProvider>
               </FavoriteProvider>
             </FetchProvider>
           }

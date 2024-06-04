@@ -1,29 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useRain } from '../hooks/useRain';
 import LeafletMap from './Leaflet';
 
-const getWeatherData = async (setWeatherData) => {
-  try {
-    const response = await fetch("https://api.rainviewer.com/public/weather-maps.json");
-    if (!response.ok) throw new Error('Network response was not ok');
-    const json = await response.json();
-    console.log('rainviewer', json)
-    // setWeatherData(json);
-  } catch (error) {
-    console.error('Fetching weather data failed:', error);
-    setWeatherData({});
-  }
-};
+// const getWeatherData = async (setWeatherData) => {
+//   try {
+//     const response = await fetch("https://api.rainviewer.com/public/weather-maps.json");
+//     if (!response.ok) throw new Error('Network response was not ok');
+//     const json = await response.json();
+//     console.log('rainviewer', json)
+//     // setWeatherData(json);
+//   } catch (error) {
+//     console.error('Fetching weather data failed:', error);
+//     setWeatherData({});
+//   }
+// };
 
 const MapApp = ( { lat, lon } ) =>
 {
-  console.log(lon, lat)
-  const [weatherData, setWeatherData] = useState(null);
+  console.log( lon, lat )
+  // const {rain} = useRain()
+  // const [weatherData, setWeatherData] = useState(null);
   // const [weatherStep, setWeatherStep] = useState(0);
 
-  useEffect(() => {
-    getWeatherData( weatherData);
+  const { rain } = useRain();
+  console.log(rain)
+  useEffect( () =>
+  {
+    
+    // getWeatherData( weatherData);
     // console.log(weatherData.radar.past.length )
   }, []);
 

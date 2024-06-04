@@ -1,45 +1,54 @@
-import 'leaflet/dist/leaflet.css';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
 import React from "react";
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import
+  {
+    MapContainer,
+    TileLayer,
+    useMapEvents
+  } from "react-leaflet";
 
-const MapComponent = () => {
-  const [weatherData, setWeatherData] = React.useState(null);
-  
-  const getWeatherData = async () => {
-    try {
-      const response = await fetch("https://api.rainviewer.com/public/weather-maps.json");
+const MapEvents = ( props ) =>
+{
+  useMapEvents({
+    mousemove: (event) => {
+      props.setMouseCoords(event.latlng);
+    },
+    drag: (event) => {
+      props.setMapCenter(event.target.getCenter());
+    },
+  });
+  return null;
+};
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch weather data");
-      }
-
-      const data = await response.json();
-      setWeatherData(data);
-    } catch (error) {
-      console.error("Error fetching weather data:", error);
-    }
-  };
-
-  console.log(weatherData);
-
+const MapComponent = ( props ) =>
+{
+    console.log(props.weatherData );
   return (
-    <div onClick={ getWeatherData }>
-      <MapContainer animate={ false } center={ [ 51.505, -0.09 ] } zoom={ 13 } style={ { height: '200px', width: 'fit' } }>
+    <MapContainer
+      animate={false}
+      center={props.mapCenter}
+      style={{ height: "100%", width: "100%" }}
+      zoom={5}
+    >
+      <MapEvents
+        setMouseCoords={props.setMouseCoords}
+        setMapCenter={props.setMapCenter}
+      />
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {props.weatherData !== null && (
         <TileLayer
-          maxNativeZoom={ 19 }
-          maxZoom={ 19 }
-          // subdomains={ [ "clarity" ] }
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          key={`weather-data-${props.weatherData.radar.past[props.weatherStep].time}`}
+          url={`${props.weatherData.host}${props.weatherData.radar.past[props.weatherStep].path}/512/{z}/{x}/{y}/6/1_0.png`}
+          zIndex={10}
         />
-        <Marker position={ [ 51.505, -0.09 ] }>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </MapContainer>
-    </div>
+      )}
+    </MapContainer>
   );
 };
 
-export default MapComponent;
+export default React.memo(MapComponent);

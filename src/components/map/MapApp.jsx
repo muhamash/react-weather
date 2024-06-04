@@ -1,70 +1,53 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// MapApp.jsx
-import "leaflet/dist/leaflet.css";
-import React from "react";
-import MapComponent from "./MapComponent";
+import { useEffect, useState } from 'react';
+import LeafletMap from './Leaflet';
 
-const getWeatherData = async ( setWeatherData ) =>
-{
-  const response = await fetch(
-    "https://api.rainviewer.com/public/weather-maps.json"
-  );
-
-  console.log(response)
-  if ( !response.ok )
-  {
-    return {};
+const getWeatherData = async (setWeatherData) => {
+  try {
+    const response = await fetch("https://api.rainviewer.com/public/weather-maps.json");
+    if (!response.ok) throw new Error('Network response was not ok');
+    const json = await response.json();
+    console.log('rainviewer', json)
+    // setWeatherData(json);
+  } catch (error) {
+    console.error('Fetching weather data failed:', error);
+    setWeatherData({});
   }
-
-  const json = await response.json();
-  setWeatherData( await json );
 };
 
-export default function MapApp ( { data } )
+const MapApp = ( { lat, lon } ) =>
 {
-  // console.log(data.lon, data.lat)
-  const [weatherData, setWeatherData] = React.useState(null);
-  const [weatherStep, setWeatherStep] = React.useState(0);
-  const [mapCenter, setMapCenter] = React.useState({ lat: data.lat, lng: data.lon });
-  const [mouseCoords, setMouseCoords] = React.useState(null);
+  console.log(lon, lat)
+  const [weatherData, setWeatherData] = useState(null);
+  // const [weatherStep, setWeatherStep] = useState(0);
 
-  React.useEffect(() => {
-    
-    getWeatherData( setWeatherData );
-    console.log(mapCenter.lat, mapCenter.lng)
+  useEffect(() => {
+    getWeatherData( weatherData);
+    // console.log(weatherData.radar.past.length )
   }, []);
 
-  React.useEffect(() => {
-    if (weatherData !== null) {
-      const numSteps = weatherData.radar.past.length;
-      console.log( numSteps );
+  // useEffect(() => {
+  //   if (weatherData) {
+  //     const numSteps = weatherData.radar.past.length;
+  //     const interval = setInterval(() => {
+  //       setWeatherStep((prevStep) => (prevStep + 1) % numSteps);
+  //     }, 500);
 
-      const interval = setInterval(() => {
-        setWeatherStep((prevStep) => (prevStep + 1) % numSteps);
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }
-  }, [ weatherData ] );
-  console.log( weatherData );
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [weatherData]);
 
   return (
     <div>
-      <div
-        className="w-[200px] h-[200px]"
-      >
-        <div >
-          <MapComponent
-            weatherData={weatherData}
-            weatherStep={weatherStep}
-            mapCenter={mapCenter}
-            setMapCenter={setMapCenter}
-            mouseCoords={mouseCoords}
-            setMouseCoords={setMouseCoords}
-          />
-        </div>
-      </div>
+      <LeafletMap
+        lat={lat}
+        lon={lon}
+        // weatherData={weatherData}
+        // weatherStep={weatherStep}
+      />
     </div>
   );
-}
+};
+
+export default MapApp;

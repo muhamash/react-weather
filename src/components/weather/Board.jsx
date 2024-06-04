@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { HashLoader } from 'react-spinners';
-import LeafletMap from '../map/Leaflet';
+import MapApp from '../map/MapApp';
 import AddFav from './AddFav';
 import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
@@ -31,7 +31,7 @@ export default function Board ({data})
                                     </div> */}
                                     <div>
                                         {/* <LeafletMap lat={ data.lat } lon={data.lon} /> */ }
-                                         <LeafletMap lat={data.lat} lon={data.lon} />
+                                         <MapApp lat={data.lat} lon={data.lon} />
                                     </div>
                                 </div>
                             </div>

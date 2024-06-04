@@ -17,7 +17,6 @@ function LeafletMap({lat, lon}) {
             .bindPopup( 'I am here!' )
             .openPopup();
 
-        // Clean up leaflet map when component unmounts
         return () =>
         {
             map.remove();

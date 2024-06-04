@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-useless-catch */
@@ -71,7 +72,7 @@ const retrieveData = async ( city ) =>
         {
             console.log( "weather data response", response.data );
             const data = response.data
-            console.log(data.forecast.forecastday[0].day.condition.text)
+            // console.log(data.forecast.forecastday[0].day.condition.text)
             return response.data;
         }
         else
@@ -89,7 +90,7 @@ const reverseGeocode = async ( latitude, longitude ) =>
     console.log(latitude, longitude)
     const apiKey = '80c5c52c4b00481bb5e049bc1be477de';
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}%2C${longitude}&key=${apiKey}`;
-
+    
     try
     {
         const response = await axios.get( url );

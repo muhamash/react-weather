@@ -14,7 +14,7 @@ function LeafletMap({lat, lon}) {
         } ).addTo( map );
 
         L.marker( [ lat, lon ] ).addTo( map )
-            .bindPopup( 'i am here' )
+            .bindPopup( 'I am here!' )
             .openPopup();
 
         // Clean up leaflet map when component unmounts
@@ -24,7 +24,7 @@ function LeafletMap({lat, lon}) {
         };
     }, [ lat, lon ] );
     return (
-        <div id="map" style={ { height: '200px' } }>
+        <div className="rounded-md" id="map" style={ { height: '200px' } }>
             
         </div>
     );

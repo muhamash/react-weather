@@ -29,11 +29,13 @@ export function FetchProvider({ children }) {
     );
   }, [] );
 
-  useEffect(() => {
-    if (!location) {
+  useEffect( () =>
+  {
+    if ( !location )
+    {
       fetchLocation();
     }
-  }, [location, fetchLocation]);
+  }, [ location, fetchLocation ] );
 
   const setEndpoint = useCallback( ( endpoint ) =>
   {
@@ -59,7 +61,9 @@ export function FetchProvider({ children }) {
   //   description: data.days[0].description,
   //   humidity: data.days[0].humidity,
   //   brief: data.description,
-  //   icon: data.days[0].icon,
+  //   icon: data.days[ 0 ].icon,
+  //   lat: data.latitude,
+  //   lon:data.longitude,
   // } : {};
   
   const weatherData = data ? {

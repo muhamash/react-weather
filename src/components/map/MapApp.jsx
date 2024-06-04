@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRain } from '../hooks/useRain';
 import LeafletMap from './Leaflet';
 
@@ -21,37 +22,41 @@ import LeafletMap from './Leaflet';
 const MapApp = ( { lat, lon } ) =>
 {
   console.log( lon, lat )
-  // const {rain} = useRain()
-  // const [weatherData, setWeatherData] = useState(null);
-  // const [weatherStep, setWeatherStep] = useState(0);
+  const {rain} = useRain()
+  const [weatherData, setWeatherData] = useState(null);
+  const [weatherStep, setWeatherStep] = useState(0);
 
-  const { rain } = useRain();
-  console.log(rain)
+  console.log(rain.radar.past)
   useEffect( () =>
   {
     
-    // getWeatherData( weatherData);
+    setWeatherData( rain );
     // console.log(weatherData.radar.past.length )
-  }, []);
+  }, [] );
+  // console.log(weatherData)
 
-  // useEffect(() => {
-  //   if (weatherData) {
-  //     const numSteps = weatherData.radar.past.length;
-  //     const interval = setInterval(() => {
-  //       setWeatherStep((prevStep) => (prevStep + 1) % numSteps);
-  //     }, 500);
-
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [weatherData]);
+  useEffect( () =>
+  {
+    if ( weatherData )
+    {
+      const numSteps = weatherData.radar.past.length;
+      const interval = setInterval( () =>
+      {
+        setWeatherStep( ( prevStep ) => ( prevStep + 1 ) % numSteps );
+      }, 1000 );
+      
+      // console.log('interval',interval)
+      return () => clearInterval( interval );
+    }
+  }, [ weatherData ] );
 
   return (
     <div>
       <LeafletMap
         lat={lat}
         lon={lon}
-        // weatherData={weatherData}
-        // weatherStep={weatherStep}
+        weatherData={weatherData}
+        weatherStep={weatherStep}
       />
     </div>
   );

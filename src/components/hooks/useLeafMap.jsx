@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import { useEffect } from 'react';
 
-function LeafletMap({lat, lon}) {
+const useLeafletMap = (lat, lon) => {
+    // const mapRef = useRef(null);
+
     useEffect( () =>
     {
         const map = L.map( 'map' ).setView( [ lat, lon ], 10 );
@@ -17,17 +17,12 @@ function LeafletMap({lat, lon}) {
             .bindPopup( 'i am here' )
             .openPopup();
 
-        // Clean up leaflet map when component unmounts
         return () =>
         {
             map.remove();
         };
-    }, [ lat, lon ] );
-    return (
-        <div id="map" style={ { height: '200px' } }>
-            
-        </div>
-    );
-}
+    }, [lat, lon] );
 
-export default LeafletMap;
+};
+
+    export default useLeafletMap;

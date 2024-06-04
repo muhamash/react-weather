@@ -30,7 +30,8 @@ export default function Board ({data})
                                         </React.Suspense>
                                     </div> */}
                                     <div>
-                                        <LeafletMap lat={ data.lat } lon={data.lon} />
+                                        {/* <LeafletMap lat={ data.lat } lon={data.lon} /> */ }
+                                         <LeafletMap lat={data.lat} lon={data.lon} />
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-useless-catch */
 import axios from 'axios';
+import { useMapEvents } from 'react-leaflet';
 /* eslint-disable no-undef */
 const getImage = ( climate ) =>
 {
@@ -117,6 +120,17 @@ const temp = ( t ) =>
 // const tempInFahrenheit = 86;
 // const tempInCelsius = temp(tempInFahrenheit);
 // console.log( `Temperature in Celsius: ${tempInCelsius.toFixed( 2 )}°C` );
+const mapEvents = (props) => {
+  useMapEvents({
+    mousemove: (event) => {
+      props.setMouseCoords(event.latlng);
+    },
+    drag: (event) => {
+      props.setMapCenter(event.target.getCenter());
+    },
+  });
+  return null;
+};
 
-export { getFormattedDateTime, getImage, retrieveData, reverseGeocode, temp };
+export { getFormattedDateTime, getImage, mapEvents, retrieveData, reverseGeocode, temp };
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import FavoriteProvider from './components/context/FavoriteProvider';
 import { FetchProvider } from './components/context/FetchProvider';
-import MapApp from './components/map/MapApp';
 import Root from './components/Root';
 
 export default function App() {
@@ -21,7 +20,7 @@ export default function App() {
             </FetchProvider>
           }
         />
-        <Route path="/map" element={ <MapApp/> } />
+        {/* <Route path="/map" element={ <MapApp/> } /> */}
       </Routes>
     </React.Suspense>
   );

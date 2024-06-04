@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { HashLoader } from 'react-spinners';
-import MapApp from '../map/MapApp';
+import LeafletMap from '../map/Leaflet';
 import AddFav from './AddFav';
 import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
@@ -21,17 +21,26 @@ export default function Board ({data})
                                 <AddFav />
                                 <WeatherHead data={ data } />
                                 <WeatherDetails data={ data } />
-                                <div className=" bg-slate-300 p-1 shadow-md rounded-md">
-                                    <p className="text-cyan-900 text-md bg-white text-center">Get update the wind direction!</p>
-                                    <MapApp/>
+                                <div className="p-1 shadow-md rounded-md">
+                                    {/* <p className="text-cyan-900 text-md bg-white text-center">Get update the wind direction!
+                                    </p> */}
+                                    {/* <div>
+                                        <React.Suspense fallback={ <p>loading.....</p> }>
+                                            <MapApp data={ data } />
+                                        </React.Suspense>
+                                    </div> */}
+                                    <div>
+                                        {/* <LeafletMap lat={ data.lat } lon={data.lon} /> */ }
+                                         <LeafletMap lat={data.lat} lon={data.lon} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 ) : (
-                        <div className="py-10 flex items-center justify-center">
-                            <HashLoader color="#36d7b7" />
-                        </div>
+                    <div className="py-10 flex items-center justify-center">
+                        <HashLoader color="#36d7b7" />
+                    </div>
                 ) }
         </>
     );

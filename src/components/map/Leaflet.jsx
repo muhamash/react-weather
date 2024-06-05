@@ -4,8 +4,11 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useRef } from 'react';
+import { useFetch } from '../hooks/useFetch';
 
-function LeafletMap({ lat, lon, weatherData, weatherStep }) {
+function LeafletMap ( { lat, lon, rainData, weatherStep } )
+{
+    const { weatherData } = useFetch()
     const mapRef = useRef(null);
     const weatherLayerRef = useRef(null);
 
@@ -17,8 +20,19 @@ function LeafletMap({ lat, lon, weatherData, weatherStep }) {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        L.marker([lat, lon]).addTo(map)
-            .bindPopup('I am here!')
+        const popupContent = `<div style="font-weight: thin; color: green;">
+            Located 🥹😊😇 you in ${weatherData?.city}!
+        </div>`;
+
+        // const customIcon = L.icon( {
+        //     iconUrl: markerIcon,
+        //     iconSize: [ 20, 95 ], 
+        //     iconAnchor: [ 22, 94 ], 
+        //     popupAnchor: [ -3, -76 ]
+        // } );
+
+        L.marker([lat, lon],).addTo(map)
+            .bindPopup(popupContent)
             .openPopup();
 
         return () => {
@@ -27,8 +41,8 @@ function LeafletMap({ lat, lon, weatherData, weatherStep }) {
     }, [lat, lon]);
 
     useEffect(() => {
-        if (weatherData) {
-            const weatherUrl = `${weatherData.host}${weatherData.radar.past[weatherStep].path}/512/{z}/{x}/{y}/6/1_0.png`;
+        if (rainData) {
+            const weatherUrl = `${rainData.host}${rainData.radar.past[weatherStep].path}/512/{z}/{x}/{y}/6/1_0.png`;
 
             if (weatherLayerRef.current) {
                 mapRef.current.removeLayer(weatherLayerRef.current);
@@ -36,10 +50,10 @@ function LeafletMap({ lat, lon, weatherData, weatherStep }) {
 
             weatherLayerRef.current = L.tileLayer(weatherUrl, { zIndex: 10 }).addTo(mapRef.current);
         }
-    }, [weatherData, weatherStep]);
+    }, [rainData, weatherStep]);
 
     return (
-        <div className="rounded-md" id="map" style={{ height: '300px' }}></div>
+        <div className="rounded-md" id="map" style={{ height: '200px', }}></div>
     );
 }
 

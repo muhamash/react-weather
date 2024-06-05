@@ -55,7 +55,7 @@ const MapApp = ( { lat, lon } ) =>
       <LeafletMap
         lat={lat}
         lon={lon}
-        weatherData={weatherData}
+        rainData={weatherData}
         weatherStep={weatherStep}
       />
     </div>

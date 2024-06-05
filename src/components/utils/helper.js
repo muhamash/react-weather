@@ -60,9 +60,9 @@ function getFormattedDateTime ( datetimeEpoch ) {
 
 const retrieveData = async ( city ) =>
 {
-    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city.queryKey[ 1 ]}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city.queryKey[ 1 ]}?key=4KCCBKNJQFYH8DKD2FMZQHBBT`;
 
-    const url  = `https://api.weatherapi.com/v1/forecast.json?key=d909ba40570e4ce287c191712240206&q=${city.queryKey[ 1 ]}&days=1&aqi=no&alerts=no`
+    // const url  = `https://api.weatherapi.com/v1/forecast.json?key=d909ba40570e4ce287c191712240206&q=${city.queryKey[ 1 ]}&days=1&aqi=no&alerts=no`
 
     console.log( url, city )
     try

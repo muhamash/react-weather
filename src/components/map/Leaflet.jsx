@@ -12,17 +12,19 @@ function LeafletMap ( { lat, lon, rainData, weatherStep } )
     const mapRef = useRef(null);
     const weatherLayerRef = useRef(null);
 
+    const city = weatherData.city.split( ',' );
+
     useEffect(() => {
-        const map = L.map('map').setView([lat, lon], 4);
+        const map = L.map('map').setView([lat, lon], 3);
         mapRef.current = map;
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        const popupContent = `<div style="font-weight: thin; color: green;">
-            Located 🥹😊😇 you in ${weatherData?.city}!
-        </div>`;
+        // const popupContent = `<div style="font-weight: thin; color: green;">
+        //     Located 🥹😇 you in ${weatherData?.city}!
+        // </div>`;
 
         // const customIcon = L.icon( {
         //     iconUrl: markerIcon,
@@ -32,7 +34,7 @@ function LeafletMap ( { lat, lon, rainData, weatherStep } )
         // } );
 
         L.marker([lat, lon],).addTo(map)
-            .bindPopup(popupContent)
+            .bindPopup(`Located 🥹😇 you in ${city[0]}!`)
             .openPopup();
 
         return () => {

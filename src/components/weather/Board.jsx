@@ -5,6 +5,7 @@ import { HashLoader } from 'react-spinners';
 import MapApp from '../map/MapApp';
 import WindyMap from '../map/WIndyMap';
 import AddFav from './AddFav';
+import ForecastTable from './ForeCastTable';
 import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
 
@@ -37,6 +38,10 @@ export default function Board ({data})
                                         <p className="text-rose-600 py-1 bg-opacity-10 mix-blend-multiply text-md bg-white text-center">Get updated with live wind direction!
                                         </p>
                                         <WindyMap lat={ data.lat } lon={ data.lon }/>
+                                    </div>
+                                    <div className='shadow-md rounded-md'>
+                                        <p className="p-1 text-md text-center text-rose-700">Data forecasts of the day!</p>
+                                        <ForecastTable forecastDay={data}/>
                                     </div>
                                 </div>
                             </div>

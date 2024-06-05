@@ -16,10 +16,11 @@ function WindyMap({lat, lon}) {
   }, [state.lat, state.lon]);
 
   return (
-    <div>
+    <div >
       <iframe
+        className="rounded-md"
         id="windyMap"
-        width="300"
+        width="280"
         height="200"
         src={`https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=${lat}&lon=${lon}`}
         frameBorder="0"

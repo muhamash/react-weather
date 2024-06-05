@@ -6,15 +6,18 @@ import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useRef } from 'react';
 import { useFetch } from '../hooks/useFetch';
 
-function LeafletMap ( { lat, lon, rainData, weatherStep } )
-{
-    const { weatherData } = useFetch()
+function LeafletMap({ lat, lon, rainData, weatherStep }) {
+    const { weatherData } = useFetch();
     const mapRef = useRef(null);
     const weatherLayerRef = useRef(null);
-
-    const city = weatherData.city.split( ',' );
+    const city = weatherData?.city?.split(',') || [];
 
     useEffect(() => {
+        if (!lat || !lon) {
+            console.error('Latitude or longitude is not defined');
+            return;
+        }
+
         const map = L.map('map').setView([lat, lon], 3);
         mapRef.current = map;
 
@@ -22,20 +25,13 @@ function LeafletMap ( { lat, lon, rainData, weatherStep } )
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // const popupContent = `<div style="font-weight: thin; color: green;">
-        //     Located 🥹😇 you in ${weatherData?.city}!
-        // </div>`;
-
-        // const customIcon = L.icon( {
-        //     iconUrl: markerIcon,
-        //     iconSize: [ 20, 95 ], 
-        //     iconAnchor: [ 22, 94 ], 
-        //     popupAnchor: [ -3, -76 ]
-        // } );
-
-        L.marker([lat, lon],).addTo(map)
-            .bindPopup(`Located 🥹😇 you in ${city[0]}!`)
-            .openPopup();
+        if (city.length > 0) {
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup(`Located 🥹😇 you in ${city[0]}!`)
+                .openPopup();
+        } else {
+            console.warn('City data is not available');
+        }
 
         return () => {
             map.remove();
@@ -43,7 +39,7 @@ function LeafletMap ( { lat, lon, rainData, weatherStep } )
     }, [lat, lon]);
 
     useEffect(() => {
-        if (rainData) {
+        if (rainData && rainData.radar && rainData.radar.past) {
             const weatherUrl = `${rainData.host}${rainData.radar.past[weatherStep].path}/512/{z}/{x}/{y}/6/1_0.png`;
 
             if (weatherLayerRef.current) {
@@ -51,6 +47,8 @@ function LeafletMap ( { lat, lon, rainData, weatherStep } )
             }
 
             weatherLayerRef.current = L.tileLayer(weatherUrl, { zIndex: 10 }).addTo(mapRef.current);
+        } else {
+            console.warn('Rain data is not complete or not available');
         }
     }, [rainData, weatherStep]);
 

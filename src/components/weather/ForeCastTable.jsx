@@ -4,7 +4,7 @@ import React from 'react';
 
 const ForecastTable = ({ forecastDay }) => {
   return (
-    <div className="bg-sky-400 bg-opacity-30 mix-blend-screen drop-shadow-md rounded-md shadow-md w-[350px] h-[200px] overflow-y-scroll">
+    <div className="bg-sky-400 bg-opacity-30 mix-blend-screen drop-shadow-md rounded-md shadow-md w-[300px] h-[200px] overflow-y-scroll">
       <table className="w-full h-full table-fixed border-collapse">
         <thead className="sticky top-0 bg-gray-400 text-center text-sm">
           <tr>

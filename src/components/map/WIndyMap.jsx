@@ -20,7 +20,7 @@ function WindyMap({lat, lon}) {
       <iframe
         className="rounded-md"
         id="windyMap"
-        width="280"
+        width="300"
         height="200"
         src={`https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=5&overlay=wind&product=ecmwf&level=surface&lat=${lat}&lon=${lon}`}
         frameBorder="0"
@@ -30,4 +30,4 @@ function WindyMap({lat, lon}) {
   );
 }
 
-export default WindyMap;
+export default React.memo(WindyMap);

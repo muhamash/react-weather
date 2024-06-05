@@ -3,6 +3,7 @@
 import React from 'react';
 import { HashLoader } from 'react-spinners';
 import MapApp from '../map/MapApp';
+import WindyMap from '../map/WIndyMap';
 import AddFav from './AddFav';
 import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
@@ -21,17 +22,21 @@ export default function Board ({data})
                                 <AddFav />
                                 <WeatherHead data={ data } />
                                 <WeatherDetails data={ data } />
-                                <div className="p-1 shadow-md rounded-md">
-                                    <p className="text-cyan-900 text-md bg-white text-center">Get updated with live rain radar!
-                                    </p>
-                                    {/* <div>
+                                <div className="p-1 md:flex gap-3">
+                                    <div className='shadow-md rounded-md'>
+                                        <p className="text-rose-600 py-1 bg-opacity-10 mix-blend-multiply text-md bg-white text-center">Get updated with live rain radar!
+                                        </p>
+                                        {/* <div>
                                         <React.Suspense fallback={ <p>loading.....</p> }>
                                             <MapApp data={ data } />
                                         </React.Suspense>
                                     </div> */}
-                                    <div>
-                                        {/* <LeafletMap lat={ data.lat } lon={data.lon} /> */ }
-                                         <MapApp lat={data.lat} lon={data.lon} />
+                                        <MapApp lat={ data.lat } lon={ data.lon } />
+                                    </div>
+                                    <div className='shadow-md rounded-md'>
+                                        <p className="text-rose-600 py-1 bg-opacity-10 mix-blend-multiply text-md bg-white text-center">Get updated with live wind direction!
+                                        </p>
+                                        <WindyMap lat={ data.lat } lon={ data.lon }/>
                                     </div>
                                 </div>
                             </div>

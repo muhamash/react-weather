@@ -1,5 +1,5 @@
 import Leaflet from './Leaflet';
-import withMemo from './WithMemo';
+import withMemo from './WIndyMap';
 
 const MemoizedLeafletMap = withMemo(Leaflet);
 

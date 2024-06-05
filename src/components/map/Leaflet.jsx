@@ -13,7 +13,7 @@ function LeafletMap ( { lat, lon, rainData, weatherStep } )
     const weatherLayerRef = useRef(null);
 
     useEffect(() => {
-        const map = L.map('map').setView([lat, lon], 5);
+        const map = L.map('map').setView([lat, lon], 4);
         mapRef.current = map;
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -53,7 +53,7 @@ function LeafletMap ( { lat, lon, rainData, weatherStep } )
     }, [rainData, weatherStep]);
 
     return (
-        <div className="rounded-md" id="map" style={{ height: '200px', }}></div>
+        <div className="rounded-md" id="map" style={{ height: '200px', width: '320px' }}></div>
     );
 }
 

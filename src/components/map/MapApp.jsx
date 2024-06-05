@@ -51,7 +51,7 @@ const MapApp = ( { lat, lon } ) =>
   }, [ weatherData ] );
 
   return (
-    <div>
+    <div className="w-[300px] h-[200px]">
       <LeafletMap
         lat={lat}
         lon={lon}

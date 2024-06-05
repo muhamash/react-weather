@@ -14,11 +14,11 @@ import { useFetch } from './hooks/useFetch';
 import Board from './weather/Board';
 
 export default function Root() {
-  const [climateImage, setClimateImage] = React.useState("");
-
+  const [ climateImage, setClimateImage ] = React.useState( "" );
   const { weatherData, error, isLoading } = useFetch();
 
   // console.log(weatherData, error, isLoading)
+  
 
   function getBackgroundImage(climate) {
     switch (climate) {
@@ -48,26 +48,28 @@ export default function Root() {
       style={ {
         backgroundImage: `url('${weatherData ? ( getBackgroundImage( weatherData.icon ) ) : ( getBackgroundImage() )}')`,
       } }
-      className=" brightness-110 place-items-center bg-repeat bg-cover h-screen"
+      className="brightness-110 place-items-center bg-repeat bg-cover w-screen relative overflow-hidden  h-screen"
     >
-      <Header />
-      <main className="my-5">
-        <ErrorBoundary fallback={ <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p> }>
-          { isLoading ? (
-            <div className="flex justify-center items-center py-20">
-              <PacmanLoader size={ 120 } color="#3390c4" />
-            </div>
-          ) : error ? (
-            <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Error: { error.message } / May be i have got wrong inputs from the search field</p>
-          ) : weatherData && Object.keys( weatherData ).length > 0 ? (
-            <Board data={ weatherData } />
-          ) : (
-            <div className="py-10 flex items-center justify-center">
-              <HashLoader size={ 150 } color="#36d7b7" />
-            </div>
-          ) }
-        </ErrorBoundary>
-      </main>
+      <div className="absolute inset-0 overflow-y-auto">
+        <Header />
+        <main  className="">
+          <ErrorBoundary fallback={ <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p> }>
+            { isLoading ? (
+              <div className="flex justify-center items-center py-20">
+                <PacmanLoader size={ 120 } color="#3390c4" />
+              </div>
+            ) : error ? (
+              <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Error: { error.message } / May be i have got wrong inputs from the search field</p>
+            ) : weatherData && Object.keys( weatherData ).length > 0 ? (
+              <Board data={ weatherData } />
+            ) : (
+              <div className="py-10 flex items-center justify-center">
+                <HashLoader size={ 150 } color="#36d7b7" />
+              </div>
+            ) }
+          </ErrorBoundary>
+        </main>
+      </div>
     </div>
   );
 }

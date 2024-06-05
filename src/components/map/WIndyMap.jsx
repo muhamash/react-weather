@@ -16,8 +16,9 @@ function WindyMap({lat, lon}) {
   }, [state.lat, state.lon]);
 
   return (
-    <div>
+    <div >
       <iframe
+        className="rounded-md"
         id="windyMap"
         width="300"
         height="200"
@@ -29,4 +30,4 @@ function WindyMap({lat, lon}) {
   );
 }
 
-export default WindyMap;
+export default React.memo(WindyMap);

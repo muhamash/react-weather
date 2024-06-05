@@ -39,7 +39,7 @@ export default function WeatherHead({data}) {
     return (
         <div className="flex flex-col justify-between brightness-110">
             <div className="max-md:flex flex-wrap gap-3 items-center justify-between md:-mt-10">
-                <img className="w-[80px] h-[80px] brightness-120" src={ data.icon } alt="climateIcon?" />
+                <img className="w-[30px] h-[30px] brightness-120" src={ getWeatherIcon(data.icon) } alt="climateIcon?" />
                 <div className="max-md:flex items-center max-md:space-x-4 ">
                     <h1 className="text-[20px] lg:text-[40px] xl:text-[60px] leading-none md:mb-4">{ data.temperature} °C</h1>
                     <div className="flex items-center space-x-4 md:mb-4">

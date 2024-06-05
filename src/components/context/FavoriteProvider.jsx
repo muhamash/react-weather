@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-// FavoriteProvider.jsx
 import { createContext } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 export const FavoriteContext = createContext();
 
-export default function FavoriteProvider({ children }) {
+export function FavoriteProvider({ children }) {
     const [fav, setFav] = useLocalStorage('weatherCity', []);
 
     const addToFav = (location) => {

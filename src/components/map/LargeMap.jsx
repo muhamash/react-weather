@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PacmanLoader } from 'react-spinners';
 import { useFetch } from '../hooks/useFetch';
-import MapApp from './MapApp';
+import Map from './Maptiler';
 
 export default function LargeMap() {
     const { weatherData, error, isLoading } = useFetch();
@@ -25,7 +25,7 @@ export default function LargeMap() {
                 </div>
             ) : (
                 <div className="h-screen w-screen">
-                    {state.lat && state.lon && <MapApp lat={state.lat} lon={state.lon} />}
+                    {state.lat && state.lon && <Map lat={state.lat} lon={state.lon} />}
                 </div>
             )}
         </div>

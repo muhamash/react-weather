@@ -23,7 +23,7 @@ export default function Board ({data})
                                 <WeatherHead data={ data } />
                                 <WeatherDetails data={ data } />
                                 <div className="p-1 md:flex mx-auto gap-5 brightness-80 w-[83%]">
-                                    <div className='w-fit mx-auto py-3'>
+                                    <div className='mx-auto py-3 w-[300px] h-[200px]'>
                                          <p className="py-1 text-lg text-center bg-gray-200 rounded-t-md font-bold">
                                             <span className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text mix-blend-multiply">
                                                 The Rain Radar:
@@ -52,8 +52,9 @@ export default function Board ({data})
                         </div>
                     </div>
                 ) : (
-                    <div className="py-10 flex items-center justify-center">
-                        <HashLoader color="#36d7b7" />
+                        <div className="py-10 flex items-center justify-center">
+                            <p>please permission allow your location service!!!</p>
+                            <HashLoader color="#36d7b7" />
                     </div>
                 ) }
         </>

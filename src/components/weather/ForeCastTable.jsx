@@ -18,7 +18,7 @@ const ForecastTable = ({ forecastDay }) => {
             {forecastDay.hour.length > 0 ? (
               forecastDay.hour.map((forecast, index) => (
                 <tr
-                  className="text-sm font-thin text-center hover:shadow-md transition-all duration-200 hover:bg-green-700 hover:text-white cursor-pointer"
+                  className="text-sm font-semibold text-center hover:shadow-md transition-all duration-200 hover:bg-green-700 hover:text-white cursor-pointer"
                   key={index}
                 >
                   <td className="  p-2">{forecast.time.split(' ')[1]}</td>

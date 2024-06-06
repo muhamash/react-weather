@@ -133,5 +133,32 @@ const mapEvents = (props) => {
   return null;
 };
 
-export { getFormattedDateTime, getImage, mapEvents, retrieveData, reverseGeocode, temp };
+const layerTitles = [
+    {
+        id: 1,
+        name: 'windLayer',
+    },
+    {
+        id: 2,
+        name: 'radarLayer',
+    },
+    {
+        id: 3,
+        name: 'precipitationLayer',
+    },
+    {
+        id: 4,
+        name: 'pressureLayer',
+    },
+    {
+        id: 5,
+        name: 'temperatureLayer',
+    },
+    {
+        id: 6,
+        name: 'rainLayer'
+    }
+]
+
+export { getFormattedDateTime, getImage, layerTitles, mapEvents, retrieveData, reverseGeocode, temp };
 

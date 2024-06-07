@@ -11,6 +11,7 @@ export default function LargeMap() {
     //         setState({ lat: weatherData.lat, lon: weatherData.lon });
     //     }
     // }, [weatherData]);
+    
 
     return (
         <div className="bg-black text-white">
@@ -30,7 +31,7 @@ export default function LargeMap() {
             <div>
                 <div className="">
                     <div>
-                        <p className="py-1 w-[300px] mx-auto text-lg text-center bg-gray-200 rounded-t-md font-bold">
+                        <p className="mx-auto text-lg text-center bg-gray-200 font-bold ">
                             <span className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text mix-blend-multiply">
                                 Map Containers:
                             </span>

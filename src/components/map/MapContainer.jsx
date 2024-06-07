@@ -32,11 +32,11 @@ export default function MapContainer({ name }) {
   }, [] );
 
   return (
-    <div className="bg-slate-400 mx-auto rounded-md flex w-full flex-wrap">
+    <div className="bg-slate-400 mx-auto rounded-md flex w-full flex-wrap p-1 bg-opacity-60  drop-shadow-md backdrop-blur-md hover:shadow-lg">
       <div className="bg-green-600 w-full">
         {name}
       </div>
-      <div className="w-full h-[320px]">
+      <div className="w-full h-[300px]">
         {location.lat && location.lon ? (
           <Map lat={location.lat} lon={location.lat} layer={name}/>
         ) : (

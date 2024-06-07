@@ -25,13 +25,9 @@ function LeafletMap({ lat, lon, rainData, weatherStep }) {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        if (city.length > 0) {
-            L.marker([lat, lon]).addTo(map)
+        L.marker([lat, lon]).addTo(map)
                 .bindPopup(`Located 🥹😇 you in ${city[0]}!`)
                 .openPopup();
-        } else {
-            console.warn('City data is not available');
-        }
 
         return () => {
             map.remove();

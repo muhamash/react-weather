@@ -10,17 +10,19 @@ import './map.css';
 export default function Map({ lon, lat, layer }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const lonLat = { lng: lon, lat: lat };
+    // const lonLat = { lng: lon, lat: lat };
     const [zoom] = useState(2);
     maptilersdk.config.apiKey = 'YIfKfxlEousH33MgOlCt';
+
+    console.log(lon, lat, layer)
 
     useEffect(() => {
         if (map.current) return;
 
         map.current = new maptilersdk.Map({
             container: mapContainer.current,
-            style: maptilersdk.MapStyle.STREETS,
-            center: [lonLat.lng, lonLat.lat],
+            style: maptilersdk.MapStyle.BACKDROP,
+            center: [lon, lat],
             zoom: zoom
         });
 
@@ -31,15 +33,15 @@ export default function Map({ lon, lat, layer }) {
             {
                 case "windLayer":
                     return new WindLayer( {
-                        id: "Wind Particles",
-                        colorramp:ColorRamp.builtin.NULL,
-                        speed: 0.001,
-                        fadeFactor: 0.03,
-                        maxAmount: 256,
-                        density: 200,
-                        color: [ 10, 30, 60, 30 ],
-                        fastColor: [ 0, 0, 0, 100 ],
-                        opacity: 0.8
+                        // id: "Wind Particles",
+                        // colorramp:ColorRamp.builtin.NULL,
+                        // speed: 0.001,
+                        // fadeFactor: 0.03,
+                        // maxAmount: 256,
+                        // density: 200,
+                        // color: [ 10, 30, 60, 30 ],
+                        // fastColor: [ 0, 0, 0, 100 ],
+                        // opacity: 0.8
                     } );
                 case "radarLayer":
                     return new RadarLayer( {
@@ -67,16 +69,22 @@ export default function Map({ lon, lat, layer }) {
             map.current.setPaintProperty("Water", 'fill-color', "rgba(0, 0, 0, 0.4)");
             map.current.addLayer( weatherLayer(), 'Water' );
             // map.current.addLayer( another, 'Water' );
-        });
+        } );
+        
+        map.current.on( 'click', function ( e )
+        {
+            console.log( 'A click event has occurred at ' + e.lngLat );
+        } );
 
-        new maptilersdk.Marker({ color: "green" })
-            .setLngLat([lonLat.lng, lonLat.lat])
+        new maptilersdk.Marker({ color: "green", draggable: true ,rotation: 1})
+            .setLngLat( [ lat, lon ] )
+            //  .setPopup(new maptilersdk.Popup().setHTML("&lt;h1&gt;Hello World!&lt;/h1&gt;"))
             .addTo(map.current);
-    }, [lonLat.lng, lonLat.lat]);
+    }, [lon, lat]);
 
     return (
         <div>
-            <div ref={mapContainer} className="map" />
+            <div ref={mapContainer} className="map rounded-b-md" />
         </div>
     );
 }

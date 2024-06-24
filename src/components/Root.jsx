@@ -63,7 +63,8 @@ export default function Root() {
             ) : weatherData && Object.keys( weatherData ).length > 0 ? (
               <Board data={ weatherData } />
             ) : (
-              <div className="py-10 flex items-center justify-center">
+                    <div className="py-10 flex items-center justify-center">
+                      <h1>Your location is didn't on api search your town or city instead!!!!</h1>
                 <HashLoader size={ 150 } color="#36d7b7" />
               </div>
             ) }

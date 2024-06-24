@@ -21,7 +21,7 @@ export default function Map({ lon, lat, layer }) {
 
         map.current = new maptilersdk.Map({
             container: mapContainer.current,
-            style: maptilersdk.MapStyle.BACKDROP,
+            style: maptilersdk.MapStyle.STREETS,
             center: [lon, lat],
             zoom: zoom
         });
@@ -33,20 +33,20 @@ export default function Map({ lon, lat, layer }) {
             {
                 case "windLayer":
                     return new WindLayer( {
-                        // id: "Wind Particles",
-                        // colorramp:ColorRamp.builtin.NULL,
-                        // speed: 0.001,
-                        // fadeFactor: 0.03,
-                        // maxAmount: 256,
-                        // density: 200,
-                        // color: [ 10, 30, 60, 30 ],
-                        // fastColor: [ 0, 0, 0, 100 ],
-                        // opacity: 0.8
+                        id: "Wind Particles",
+                        colorramp:ColorRamp.builtin.NULL,
+                        speed: 0.001,
+                        fadeFactor: 0.03,
+                        maxAmount: 256,
+                        density: 200,
+                        color: [ 10, 30, 60, 30 ],
+                        fastColor: [ 0, 0, 0, 100 ],
+                        opacity: 0.8
                     } );
                 case "radarLayer":
                     return new RadarLayer( {
-                        // opacity: 0.8,
-                        // colorramp:ColorRamp.builtin.RADAR_CLOUD,
+                        opacity: 0.8,
+                        colorramp:ColorRamp.builtin.RADAR_CLOUD,
                     } );
                 case "pressureLayer":
                     return new PressureLayer();
@@ -55,7 +55,10 @@ export default function Map({ lon, lat, layer }) {
                         opacity:0.6
                     });
                 case 'precipitationLayer':
-                    return new PrecipitationLayer();
+                    return new PrecipitationLayer( {
+                        // opacity: [ 0.9 ],
+                        // fastColor: [ 0, 0, 0, 100 ],
+                    });
                 default:
                     return null;
             }

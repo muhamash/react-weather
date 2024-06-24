@@ -4,6 +4,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useRef } from 'react';
+import customMarker from '../../assets/marker.png';
 import { useFetch } from '../hooks/useFetch';
 
 function LeafletMap({ lat, lon, rainData, weatherStep }) {
@@ -23,9 +24,16 @@ function LeafletMap({ lat, lon, rainData, weatherStep }) {
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        } ).addTo( map );
+        
+        const customIcon = L.icon( {
+            iconUrl: customMarker,
+            iconSize: [ 32, 32 ], 
+            iconAnchor: [ 16, 32 ], // point of the icon which will correspond to marker's location
+            popupAnchor: [ 0, -32 ] // point from which the popup should open relative to the iconAnchor
+        } );
 
-        L.marker([lat, lon]).addTo(map)
+        L.marker([lat, lon], {icon: customIcon}).addTo(map)
                 .bindPopup(`Located 🥹😇 you in ${city[0]}!`)
                 .openPopup();
 

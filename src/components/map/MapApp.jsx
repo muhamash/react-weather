@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRain } from '../hooks/useRain';
 import LeafletMap from './Leaflet';
 
+
 const MapApp = ({ lat, lon }) => {
     const { rain } = useRain();
     const [weatherData, setWeatherData] = useState(null);

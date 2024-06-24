@@ -2,10 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { HashLoader } from 'react-spinners';
-import MapApp from '../map/MapApp';
-import WindyMap from '../map/WIndyMap';
 import AddFav from './AddFav';
-import ForecastTable from './ForeCastTable';
 import WeatherDetails from './WeatherDetails';
 import WeatherHead from './WeatherHead';
 
@@ -22,7 +19,9 @@ export default function Board ({data})
                                 <AddFav />
                                 <WeatherHead data={ data } />
                                 <WeatherDetails data={ data } />
-                                <div className="p-1 md:flex mx-auto gap-5 brightness-80 w-[83%]">
+
+                                {/* maps and forecasting */}
+                                {/* <div className="p-1 md:flex mx-auto gap-5 brightness-80 w-[83%]">
                                     <div className='mx-auto py-3 w-[300px] h-[200px]'>
                                          <p className="py-1 text-lg text-center bg-gray-200 rounded-t-md font-bold">
                                             <span className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text mix-blend-multiply">
@@ -47,7 +46,7 @@ export default function Board ({data})
                                         </p>
                                         <ForecastTable forecastDay={ data } />
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

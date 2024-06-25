@@ -1,3 +1,5 @@
+/* eslint-disable no-irregular-whitespace */
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -52,6 +54,17 @@ export default function Root() {
     >
       <div className="absolute inset-0 overflow-y-auto">
         <Header />
+        <nav>
+          <button>
+              Radar
+          </button>
+          <button>
+            Forecast
+          </button>
+          <button>
+              Map
+          </button>
+        </nav>
         <main  className="">
           <ErrorBoundary fallback={ <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p> }>
             { isLoading ? (

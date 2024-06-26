@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/" element={<Root />}>
           <Route index element={<DashBoard weatherData={weatherData} error={error} isLoading={isLoading} />} />
           <Route path="radar" element={<Radar lon={weatherData.lon} lat={weatherData.lat} />} />
-          <Route path="map" element={<Map />} />
+          <Route path="map" element={<Map lon={20} lat={40} layer={'windLayer'}/>} />
         </Route>
       </Routes>
     </React.Suspense>

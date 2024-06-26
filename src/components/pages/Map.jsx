@@ -1,86 +1,98 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-// import confetti from "https://esm.sh/canvas-confetti@1.6.0"
-// import React from "https://esm.sh/react@18.2.0"
+/* eslint-disable no-unused-vars */
+import * as maptilersdk from '@maptiler/sdk';
+import "@maptiler/sdk/dist/maptiler-sdk.css";
+import { ColorRamp, PrecipitationLayer, PressureLayer, RadarLayer, TemperatureLayer, WindLayer } from "@maptiler/weather";
+import React, { useEffect, useRef, useState } from 'react';
+import './map.css';
 
-// const Map = () => {
-//   function onMouseMove(e) {
-//     confetti({
-//       particleCount: 5,
-//       origin: {
-//         x: e.pageX / window.innerWidth,
-//         y: (e.pageY + 20) / window.innerHeight,
-//       }
-//     })
-//   }
+export default function Map({ lon, lat, layer }) {
+    const mapContainer = useRef(null);
+    const map = useRef(null);
+    // const lonLat = { lng: lon, lat: lat };
+    const [zoom] = useState(2);
+    maptilersdk.config.apiKey = 'YIfKfxlEousH33MgOlCt';
 
-//   return (
-//     <div onMouseMove={onMouseMove} className="h-screen w-screen">
-//       <h1>Hello React! ⚛️</h1>
-//       <p>Building user interfaces.</p>
-//     </div>
-//   )
-// }
+    console.log(lon, lat, layer)
 
-// export default Map
+    useEffect(() => {
+        if (map.current) return;
 
-import axios from 'axios';
-import React from "https://esm.sh/react@18.2.0";
-import 'leaflet/dist/leaflet.css';
-import { useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+        map.current = new maptilersdk.Map({
+            container: mapContainer.current,
+            style: maptilersdk.MapStyle.STREETS,
+            center: [lon, lat],
+            zoom: zoom
+        });
 
-
-function MapEvents({ setState }) {
-    const map = useMapEvents({
-        click() {
-            map.locate();
-        },
-        locationfound(e) {
-            setState(e.latlng);
-            map.flyTo(e.latlng, map.getZoom());
-        }
-    });
-
-    return null;
-}
-
-export default function Map() {
-    const [markerPosition, setMarkerPosition] = useState([51.505, -0.09]);
-    const [ popupContent, setPopupContent ] = useState( null );
-    
-
-    const handleMarkerDragEnd = (e) => {
-        setMarkerPosition( e.target.getLatLng() );
         
-        axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${e.target.getLatLng().lat}&lon=${e.target.getLatLng().lng}&format=json`)
-            .then( response =>
+        const weatherLayer = () =>
+        {
+            switch ( layer )
             {
-                console.log(response.data)
-                const cityName = response.data.display_name;
-                setPopupContent(cityName);
-            })
-            .catch(error => {
-                console.error('Error fetching city name:', error);
-            });
-    };
+                case "windLayer":
+                    return new WindLayer( {
+                        id: "Wind Particles",
+                        colorramp:ColorRamp.builtin.NULL,
+                        speed: 0.001,
+                        fadeFactor: 0.03,
+                        maxAmount: 256,
+                        density: 200,
+                        color: [ 10, 30, 60, 30 ],
+                        fastColor: [ 0, 0, 0, 100 ],
+                        opacity: 0.9
+                    } );
+                case "radarLayer":
+                    return new RadarLayer( {
+                        opacity: 0.8,
+                        colorramp:ColorRamp.builtin.RADAR_CLOUD,
+                    } );
+                case "pressureLayer":
+                    return new PressureLayer();
+                case 'temperatureLayer':
+                    return new TemperatureLayer( {
+                        opacity:0.6
+                    });
+                case 'precipitationLayer':
+                    return new PrecipitationLayer( {
+                        // opacity: [ 0.9 ],
+                        // fastColor: [ 0, 0, 0, 100 ],
+                    });
+                default:
+                    return null;
+            }
+        }
 
+        const another = new RadarLayer( {
+            opacity: 1,
+            colorramp: ColorRamp.builtin.RADAR_CLOUD,
+        } );
+        map.current.on('load', function () {
+            map.current.setPaintProperty("Water", 'fill-color', "rgba(0, 0, 0, 0.4)");
+            map.current.addLayer( weatherLayer(), 'Water' );
+            // map.current.addLayer( another, 'Water' );
+        } );
+        
+        map.current.on( 'click', function ( e )
+        {
+            console.log( 'A click event has occurred at ' + e.lngLat );
+        } );
 
+        new maptilersdk.Marker({ color: "green", draggable: true ,rotation: 1})
+            .setLngLat( [ lat, lon ] )
+             .setPopup(new maptilersdk.Popup().setHTML("jbjkbjkbjk"))
+            .addTo(map.current);
+    }, [lon, lat]);
 
     return (
-        <div className="p-[20px]">
-            <div className="p-[2px] my-5 bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 min-h-[520px] max-w-[1600px] mx-auto" >
-            <MapContainer center={ markerPosition } zoom={ 10 } style={ { height: '620px', width: '100%' } }>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={ markerPosition } draggable={ true } eventHandlers={ { dragend: handleMarkerDragEnd } }>
-                    <Popup>{ popupContent || 'Drag me to see city name' }</Popup>
-                </Marker>
-                <MapEvents setState={ setMarkerPosition } />
-            </MapContainer>
-        </div>
+        <div className="p-5">
+            <div  style={ { minHeight: '620px', maxWidth: '1600px' } } ref={ mapContainer }
+                className="map rounded-md z-1">
+                <div className="z-10 absolute h-[300px] w-[50px] bg-black/30 m-5 rounded-md">
+                    
+                </div>
+            </div>
         </div>
     );
 }

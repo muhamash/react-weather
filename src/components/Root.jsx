@@ -61,12 +61,12 @@ export default function Root ()
       <div className="absolute inset-0 overflow-y-auto">
         { location.pathname === "/" && <Header /> }
         <nav className="py-3 flex justify-center gap-10">
-          { location.pathname !== '/dashboard' && (
+          { location.pathname !== '/' && (
             <Button
                 onClick={handleClickButton}
                 text="Dashboard"
                 type="cart"
-                addClassName="w-[100px] h-[40px] text-md text-white"
+                addClassName="px-5 py-3 text-sm md:text-md text-white"
               />
           ) }
           { location.pathname !== '/radar' && (
@@ -75,7 +75,7 @@ export default function Root ()
                 text="Radar"
                 type="checkout"
                 state="normal"
-                addClassName="w-[100px] h-[40px] text-md text-white"
+                addClassName="px-5 py-3 text-sm md:text-md text-white"
               />
             </Link>
           ) }
@@ -83,7 +83,7 @@ export default function Root ()
             text="Forecast"
             type="cartG"
             state="normal"
-            addClassName="w-[100px] h-[40px] text-md text-white"
+            addClassName="px-5 py-3 text-sm md:text-md text-white"
           />
           { location.pathname !== '/map' && (
             <Link to="/map">
@@ -91,7 +91,7 @@ export default function Root ()
                 text="Map"
                 type="default"
                 state="normal"
-                addClassName="w-[100px] h-[40px] text-md text-white"
+                addClassName="px-5 py-3 text-sm md:text-md text-white"
               />
             </Link>
           ) }

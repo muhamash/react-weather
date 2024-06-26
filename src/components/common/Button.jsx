@@ -16,7 +16,7 @@ const getTypeColor = ( type ) =>
 const getStateClass = (state) => {
   const stateClasses = {
     normal: 'opacity-100',
-    disabled: 'opacity-50 cursor-not-allowed',
+    disabled: 'cursor-not-allowed transparent',
   };
   return stateClasses[state] || stateClasses.normal;
 };

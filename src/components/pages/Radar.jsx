@@ -26,8 +26,8 @@ export default function Radar ( { lon, lat } )
   console.log( lon, lat )
   
   return (
-    <div className="p-[15px]">
-      <div className="bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 min-h-[520px] max-w-[1058px] mx-auto">
+    <div className="p-[10px]">
+      <div className="bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 min-h-[620px] max-w-[1600px] mx-auto">
         <LeafLetMap lat={ lat }
           lon={ lon }
           rainData={ weatherData }

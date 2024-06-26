@@ -57,7 +57,7 @@ function LeafletMap({ lat, lon, rainData, weatherStep }) {
     }, [rainData, weatherStep]);
 
     return (
-        <div className="rounded-md" id="map" style={{ minHeight: '520px', maxWidth: '1058px' }}></div>
+        <div className="rounded-md" id="map" style={{ minHeight: '620px', maxWidth: '1600px' }}></div>
     );
 }
 

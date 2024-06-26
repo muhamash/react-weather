@@ -28,7 +28,7 @@ export default function FavModal({ onShow }) {
                 {fav.length !== 0 ? (
                     <div className="space-y-2 mt-4 *:py-2 *:px-4 *:cursor-pointer flex flex-col">
                         {fav.map((f, index) => (
-                            <Link to='/dashboard' key={index} onClick={()=>  handleCLick(f) }
+                            <Link to='/' key={index} onClick={()=>  handleCLick(f) }
                                 className=" hover:bg-slate-400">
                                  {f}
                             </Link>

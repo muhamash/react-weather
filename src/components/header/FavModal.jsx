@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 // import React from 'react';
+import { Link } from 'react-router-dom';
 import { useFav } from '../hooks/useFav';
 import { useFetch } from '../hooks/useFetch';
 
@@ -25,17 +26,14 @@ export default function FavModal({ onShow }) {
             <div>
                 <h3 className="text-sm font-mono px-4">Favorite Locations:</h3>
                 {fav.length !== 0 ? (
-                    <ul className="space-y-2 mt-4 *:py-2 *:px-4 *:cursor-pointer">
+                    <div className="space-y-2 mt-4 *:py-2 *:px-4 *:cursor-pointer flex flex-col">
                         {fav.map((f, index) => (
-                            <li
-                                onClick={()=>  handleCLick(f) }
-                                className=" hover:bg-slate-400"
-                                key={index}
-                            >
-                                {f}
-                            </li>
+                            <Link to='/dashboard' key={index} onClick={()=>  handleCLick(f) }
+                                className=" hover:bg-slate-400">
+                                 {f}
+                            </Link>
                         ))}
-                    </ul>
+                    </div>
                 ) : (
                     <p className="text-sm font-thin text-center py-3">no data in there</p>
                 )}

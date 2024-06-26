@@ -2,8 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { HashLoader, PacmanLoader } from 'react-spinners';
+// import { HashLoader, PacmanLoader } from 'react-spinners';
 import { default as ClearSkyImage, default as FewCloudsImage } from "../assets/backgrounds/few-clouds.jpg";
 import MistImage from "../assets/backgrounds/mist.jpeg";
 import RainyDayImage from "../assets/backgrounds/rainy-day.jpg";
@@ -13,7 +12,8 @@ import ThunderStormImage from "../assets/backgrounds/thunderstorm.jpg";
 import WinterImage from "../assets/backgrounds/winter.jpg";
 import Header from './header/Header';
 import { useFetch } from './hooks/useFetch';
-import Board from './weather/Board';
+// import Board from './weather/Board';
+import { Link, Outlet } from "react-router-dom";
 
 export default function Root() {
   const [ climateImage, setClimateImage ] = React.useState( "" );
@@ -54,10 +54,17 @@ export default function Root() {
     >
       <div className="absolute inset-0 overflow-y-auto">
         <Header />
-        <nav>
-          <button>
+        <nav className="py-3 flex justify-center gap-10">
+          <Link to="/dashboard">
+            <button>
+            Dashboard
+          </button>
+          </Link>
+          <Link to="/radar">
+            <button >
               Radar
           </button>
+          </Link>
           <button>
             Forecast
           </button>
@@ -65,7 +72,8 @@ export default function Root() {
               Map
           </button>
         </nav>
-        <main  className="">
+        <Outlet/>
+        {/* <main  className="">
           <ErrorBoundary fallback={ <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p> }>
             { isLoading ? (
               <div className="flex justify-center items-center py-20">
@@ -82,7 +90,7 @@ export default function Root() {
               </div>
             ) }
           </ErrorBoundary>
-        </main>
+        </main> */}
       </div>
     </div>
   );

@@ -29,8 +29,8 @@ function LeafletMap({ lat, lon, rainData, weatherStep }) {
         const customIcon = L.icon( {
             iconUrl: customMarker,
             iconSize: [ 32, 32 ], 
-            iconAnchor: [ 16, 32 ], // point of the icon which will correspond to marker's location
-            popupAnchor: [ 0, -32 ] // point from which the popup should open relative to the iconAnchor
+            iconAnchor: [ 16, 32 ], 
+            popupAnchor: [ 0, -32 ],
         } );
 
         L.marker([lat, lon], {icon: customIcon}).addTo(map)
@@ -57,7 +57,7 @@ function LeafletMap({ lat, lon, rainData, weatherStep }) {
     }, [rainData, weatherStep]);
 
     return (
-        <div className="rounded-md" id="map" style={{ height: '200px', width: '300px' }}></div>
+        <div className="rounded-md" id="map" style={{ minHeight: '520px', maxWidth: '1058px' }}></div>
     );
 }
 

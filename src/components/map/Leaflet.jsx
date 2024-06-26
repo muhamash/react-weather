@@ -19,7 +19,7 @@ function LeafletMap({ lat, lon, rainData, weatherStep }) {
             return;
         }
 
-        const map = L.map('map').setView([lat, lon], 3);
+        const map = L.map('map').setView([lat, lon], 6);
         mapRef.current = map;
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

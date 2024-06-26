@@ -68,7 +68,8 @@ export default function Map() {
 
 
     return (
-        <div className="p-1 my-5 bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 min-h-[520px] max-w-[1600px] mx-auto" >
+        <div className="p-[20px]">
+            <div className="p-[2px] my-5 bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 min-h-[520px] max-w-[1600px] mx-auto" >
             <MapContainer center={ markerPosition } zoom={ 10 } style={ { height: '620px', width: '100%' } }>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -79,6 +80,7 @@ export default function Map() {
                 </Marker>
                 <MapEvents setState={ setMarkerPosition } />
             </MapContainer>
+        </div>
         </div>
     );
 }

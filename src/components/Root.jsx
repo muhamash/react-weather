@@ -14,6 +14,7 @@ import Header from './header/Header';
 import { useFetch } from './hooks/useFetch';
 // import Board from './weather/Board';
 import { Link, Outlet } from "react-router-dom";
+import Button from './common/Button';
 
 export default function Root() {
   const [ climateImage, setClimateImage ] = React.useState( "" );
@@ -56,23 +57,35 @@ export default function Root() {
         <Header />
         <nav className="py-3 flex justify-center gap-10">
           <Link to="/dashboard">
-            <button>
-            Dashboard
-          </button>
+            <Button text="Dashboard"
+              type="cart"
+              state="normal"
+              // onClick={ handleClick }
+              addClassName='w-[100px] h-[40px] text-md text-white'
+              dropdown={ true } />
           </Link>
           <Link to="/radar">
-            <button >
-              Radar
-          </button>
+            <Button text="Radar"
+              type="checkout"
+              state="normal"
+              // onClick={ handleClick }
+              addClassName='w-[100px] h-[40px] text-md text-white'
+              dropdown={ true } />
           </Link>
-          <button>
-            Forecast
-          </button>
-          <button>
-              Map
-          </button>
+          <Button text="Forecast"
+            type="cartG"
+            state="normal"
+            // onClick={ handleClick }
+            addClassName='w-[100px] h-[40px] text-md text-white'
+            dropdown={ true } />
+          <Button text="Map"
+            type="default"
+            state="normal"
+            // onClick={ handleClick }
+            addClassName='w-[100px] h-[40px] text-md text-white'
+            dropdown={ true } />
         </nav>
-        <Outlet/>
+        <Outlet />
         {/* <main  className="">
           <ErrorBoundary fallback={ <p className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Something went wrong. Reload it!</p> }>
             { isLoading ? (

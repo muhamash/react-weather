@@ -15,7 +15,10 @@ export default function FavModal({ onShow }) {
     const handleCLick = async (f) => {
         try {
             // const coords = await geocode(f);
-            setEndpoint(f);
+            setTimeout( () =>
+            {
+                setEndpoint( f );
+            }, 500 );
         } catch (error) {
             console.error('Error in handleClick:', error);
         }

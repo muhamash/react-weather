@@ -11,7 +11,7 @@ export default function Search() {
     const debounceSearch = useDebounce(async (term) => {
         setEndpoint(term);
         // setCoords({ latitude, longitude });
-    }, 1000);
+    }, 500);
 
     const handleChange = async (e) => {
         e.preventDefault();

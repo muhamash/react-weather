@@ -86,12 +86,14 @@ export default function Map ( { lon, lat, layer } )
             case 'temperatureLayer':
                 return new TemperatureLayer( {
                     id: "temperatureLayer",
-                    opacity: 0.4
+                    opacity: 0.4,
+                    colorramp: ColorRamp.builtin.TEMPERATURE
                 } );
             case 'precipitationLayer':
                 return new PrecipitationLayer( {
                     id: "precipitationLayer",
-                    opacity: 0.8
+                    opacity: 0.8,
+                    colorramp: ColorRamp.builtin.PRECIPITATION
                 } );
             default:
                 return null;
@@ -110,7 +112,7 @@ export default function Map ( { lon, lat, layer } )
     return (
         <div className="p-5">
             <div style={ { minHeight: '620px', maxWidth: '1600px' } } ref={ mapContainer }
-                className="map rounded-md z-1">
+                className="map rounded-md z-1 mx-auto">
                 <div className="z-10 absolute p-2 bg-black/30 backdrop-blur-md m-5 rounded-md text-white text-md font-mono">
                     <div>
                         <div className="flex gap-1 items-center py-1">

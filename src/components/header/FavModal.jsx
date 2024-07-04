@@ -25,7 +25,7 @@ export default function FavModal({ onShow }) {
     };
     
     return (
-        <div onClick={onShow} className="max-w-xs py-4  bg-opacity-90  brightness-125 rounded-md  transition-all duration-150 ease-in-out absolute z-50 -right-5 top-16 shadow-lg text-white hover:text-black  bg-black/20  backdrop-blur-md border-[1.2px] h-[300px] w-[150px] border-sky-500 overflow-y-scroll scrollbar-hide">
+        <div onClick={onShow} className="max-w-xs py-4  bg-opacity-90  brightness-125 rounded-md  transition-all duration-150 ease-in-out absolute z-50 -right-5 top-16 shadow-lg text-white hover:text-black  bg-black/20  backdrop-blur-md border-[1.2px] h-[300px] w-[150px] border-sky-500 overflow-y-scroll ">
             <div>
                 <h3 className="text-sm font-mono px-4">Favorite Locations:</h3>
                 {fav.length !== 0 ? (

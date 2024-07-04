@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
 import { PacmanLoader } from 'react-spinners';
+import ForeCastTable from '../common/ForeCastTable';
 
 const retrieveData = async ({ queryKey }) => {
   // const [ _key, { lat, lon } ] = queryKey;
@@ -14,7 +15,7 @@ const retrieveData = async ({ queryKey }) => {
   try {
     const response = await axios.get(url);
     if (response.status === 200) {
-      console.log("weather data response", response.data);
+      // console.log("weather data response", response.data);
       return response.data;
     } else {
       throw new Error(`Something went wrong in retrieve function: ${response.statusText}`);
@@ -41,9 +42,14 @@ export default function ForeCast ( { lon, lat } )
     return <div className="text-md bg-red-700 text-white p-3 rounded shadow-yellow-200 bg-opacity-70 mix-blend-multiply drop-shadow-md shadow-lg">Error fetching forecast data: {error.message}</div>;
   }
 
+  console.log(data.list[0])
+
   return (
-    <div className="bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 p-[20px] min-h-[620px] max-w-[1058px] mx-auto my-5">
-      <h2>Weather Forecast</h2>
+    <div className="bg-black/20 rounded-xl backdrop-blur-md border-[1.2px] border-sky-500 p-[10px] min-h-[620px] max-w-[1058px] mx-auto my-5">
+      <h2 className="text-center">Weather Forecast</h2>
+      { data.list.map( ( l, index ) => (
+        <ForeCastTable key={ index } time={ l.dt } icon={ l.weather[ 0 ].main } temperature={ l.main.temp } wind={ l.wind.speed } pressure={l.main.pressure} humidity={l.main.humidity}/>
+      ))}
     </div>
   );
 }

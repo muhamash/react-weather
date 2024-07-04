@@ -6,7 +6,7 @@ import MistImage from "../../assets/icons/wind.svg";
 import RainyDayImage from "../../assets/rainy.svg";
 import ClearSkyImage from "../../assets/sun.svg";
 import ThunderStormImage from "../../assets/thunder.svg";
-import { getFormattedDateTime, temp } from "../utils/helper";
+import { getFormattedDateTime } from "../utils/helper";
 
 export default function ForeCastTable ( { time, icon, temperature, wind, pressure, humidity } )
 {
@@ -32,30 +32,37 @@ export default function ForeCastTable ( { time, icon, temperature, wind, pressur
                 return ClearSkyImage;
         }
     }
+
+    function kelvinToCelsius(kelvin) {
+    if (kelvin < 0) {
+        throw new Error("Temperature in Kelvin cannot be negative");
+    }
+    const celsius = kelvin - 273.15;
+    return celsius.toFixed(2);
+    }
     
     return (
         <div>
-            <div className="px-6 text-center bg-gray-50 py-4 whitespace-nowrap text-sm text-gray-800">{ getFormattedDateTime( time ) }</div>
+            <div className="px-6 text-center bg-gray-50 py-4 whitespace-nowrap text-sm text-gray-900">{ getFormattedDateTime( time ) }</div>
             <table className="min-w-full divide-y divide-gray-200">
-            
-                <thead className="">
+                <thead className="bg-cyan-700">
                     <tr>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">State</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Temp</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Wind</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Pressure</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Humidity</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">State</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Temp</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Wind</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Pressure</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Humidity</th>
                     </tr>
                 </thead>
-                <tbody className=" divide-y divide-gray-200">
+                <tbody className=" divide-y ">
                     <tr>
                         <td className="px-6 py-4 whitespace-nowrap">
                             <img src={ getIcon( icon ) } alt="" className="w-8 h-8" />
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{ temp( temperature ) }</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{ wind } m/s</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{ pressure } Kpa</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{ humidity } %</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ kelvinToCelsius( temperature ) } ˚C</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ wind } m/s</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ pressure } Kpa</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ humidity } %</td>
                     </tr>
                 </tbody>
             </table>

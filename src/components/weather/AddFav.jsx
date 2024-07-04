@@ -44,8 +44,8 @@ export default function AddFav() {
                     onClick={handleClick}
                     className="text-sm md:text-base inline-flex items-center space-x-2 px-3 py-1.5 rounded-md bg-[#C5C5C54D] cursor-pointer hover:bg-green-500 hover:text-white shadow-md"
                 >
-                    <span>{toggle ? "Remove from Favorite" : "Add Favorite"}</span>
-                    <img src={!toggle ? HeartIconRed : HeartIcon} alt="" />
+                    <span>{!fav || toggle ? "Remove from Favorite" : "Add Favorite"}</span>
+                    <img src={fav && !toggle ? HeartIconRed : HeartIcon} alt="" />
                 </button>
             </div>
         </div>

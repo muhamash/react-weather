@@ -85,32 +85,25 @@ const retrieveData = async ( city ) =>
     }
 };
 
-const reverseGeocode = async ( latitude, longitude ) =>
-{
-    console.log(latitude, longitude)
-    const apiKey = '80c5c52c4b00481bb5e049bc1be477de';
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}%2C${longitude}&key=${apiKey}`;
+const reverseGeocode = async (latitude, longitude) => {
+    console.log(latitude, longitude);
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
     
-    try
-    {
-        const response = await axios.get( url );
-        if ( response.status === 200 )
-        {
-            console.log( "reverse geo location", response.data.results[ 0 ].components );
-            // const { city } = response.data.results[ 0 ].components;
-            // console.log( city );
-            // console.log(typeof response.data.results[ 0 ].components.city)
-            return response.data.results[ 0 ].components.city;
+    try {
+        const response = await axios.get(url);
+        if (response.status === 200) {
+            const address = response.data.address;
+            console.log(address)
+            const city = address.city || address.town || address.village || address.suburb || address.hamlet || 'Unknown location';
+            return city;
+        } else {
+            throw new Error('Reverse geocoding failed');
         }
-        else
-        {
-            throw new Error( 'Reverse geocoding failed' );
-        }
-    } catch ( error )
-    {
+    } catch (error) {
         throw error;
     }
 };
+
 
 const temp = ( t ) =>
 {

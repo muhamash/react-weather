@@ -5,6 +5,7 @@ import DashBoard from './components/pages/DashBoard';
 import Map from './components/pages/Map.jsx';
 import Radar from './components/pages/Radar';
 import Root from './components/Root';
+import ForeCast from './components/pages/ForeCast.jsx';
 
 export default function App() {
   const location = useLocation();
@@ -15,7 +16,8 @@ export default function App() {
         <Route path="/" element={<Root />}>
           <Route index element={<DashBoard weatherData={weatherData} error={error} isLoading={isLoading} />} />
           <Route path="radar" element={<Radar lon={weatherData.lon} lat={weatherData.lat} />} />
-          <Route path="map" element={<Map lon={weatherData.lon} lat={weatherData.lat}/>} />
+          <Route path="map" element={ <Map lon={ weatherData.lon } lat={ weatherData.lat } /> } />
+          <Route path="forecast" element={ <ForeCast />} />
         </Route>
       </Routes>
     </React.Suspense>

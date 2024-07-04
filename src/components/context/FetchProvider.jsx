@@ -18,7 +18,9 @@ export function FetchProvider({ children }) {
       async ( position ) =>
       {
         const { latitude, longitude } = position.coords;
+        console.log(latitude, longitude)
         const city = await reverseGeocode( latitude, longitude );
+        console.log(city)
         setLocation( city );
         setCoords( { latitude, longitude } );
       },

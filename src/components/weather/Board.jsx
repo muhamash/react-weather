@@ -19,34 +19,6 @@ export default function Board ({data})
                                 <AddFav />
                                 <WeatherHead data={ data } />
                                 <WeatherDetails data={ data } />
-
-                                {/* maps and forecasting */}
-                                {/* <div className="p-1 md:flex mx-auto gap-5 brightness-80 w-[83%]">
-                                    <div className='mx-auto py-3 w-[300px] h-[200px]'>
-                                         <p className="py-1 text-lg text-center bg-gray-200 rounded-t-md font-bold">
-                                            <span className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text mix-blend-multiply">
-                                                The Rain Radar:
-                                            </span>
-                                        </p>
-                                        <MapApp lat={ data.lat } lon={ data.lon } />
-                                    </div>
-                                    <div className='w-fit mx-auto py-3'>
-                                        <p className="py-1 text-lg text-center bg-gray-200 rounded-t-md font-bold">
-                                            <span className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text mix-blend-multiply">
-                                                The Wind Radar:
-                                            </span>
-                                        </p>
-                                        <WindyMap lat={ data.lat } lon={ data.lon } />
-                                    </div>
-                                    <div className='w-fit mx-auto py-3'>
-                                         <p className="py-1 text-lg text-center bg-gray-200 rounded-t-md font-bold">
-                                            <span className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 text-transparent bg-clip-text mix-blend-multiply">
-                                                Forecast of the hours(Day):
-                                            </span>
-                                        </p>
-                                        <ForecastTable forecastDay={ data } />
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>

@@ -63,11 +63,11 @@ export default function Root ()
         <nav className="py-3 flex justify-center gap-10">
           { location.pathname !== '/' && (
             <Button
-                onClick={handleClickButton}
-                text="Dashboard"
-                type="cart"
-                addClassName="px-5 py-3 text-sm md:text-md text-white"
-              />
+              onClick={ handleClickButton }
+              text="Dashboard"
+              type="cart"
+              addClassName="px-5 py-3 text-sm md:text-md text-white"
+            />
           ) }
           { location.pathname !== '/radar' && (
             <Link to="/radar">
@@ -79,12 +79,18 @@ export default function Root ()
               />
             </Link>
           ) }
-          <Button
-            text="Forecast"
-            type="cartG"
-            state="normal"
-            addClassName="px-5 py-3 text-sm md:text-md text-white"
-          />
+          {
+            location.pathname !== '/forecast' && (
+              <Link to="forecast">
+                <Button
+                  text="Forecast"
+                  type="cartG"
+                  state="normal"
+                  addClassName="px-5 py-3 text-sm md:text-md text-white"
+                />
+              </Link>
+            )
+          }
           { location.pathname !== '/map' && (
             <Link to="/map">
               <Button

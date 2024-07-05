@@ -47,22 +47,22 @@ export default function ForeCastTable ( { time, icon, temperature, wind, pressur
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-cyan-700">
                     <tr>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">State</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Temp</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Wind</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Pressure</th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Humidity</th>
+                        <th scope="col" className="py-[5px] px-[1px] md:p-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider mx-auto">State</th>
+                        <th scope="col" className="py-[5px] px-[1px] md:p-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider ">Temp</th>
+                        <th scope="col" className="py-[5px] px-[1px] md:p-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Wind</th>
+                        <th scope="col" className=" py-[5px] px-[1px] md:p-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Pressure</th>
+                        <th scope="col" className="py-[5px] px-[1px] md:p-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">Humidity</th>
                     </tr>
                 </thead>
                 <tbody className=" divide-y ">
                     <tr>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="whitespace-nowrap p-1">
                             <img src={ getIcon( icon ) } alt="" className="w-8 h-8" />
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ kelvinToCelsius( temperature ) } ˚C</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ wind } m/s</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ pressure } Kpa</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{ humidity } %</td>
+                        <td className="whitespace-nowrap p-1 text-sm text-gray-900">{ kelvinToCelsius( temperature ) }˚C</td>
+                        <td className="whitespace-nowrap p-1 text-sm text-gray-900">{ wind } m/s</td>
+                        <td className=" whitespace-nowrap p-1 text-sm text-gray-900">{ pressure } Kpa</td>
+                        <td className="  whitespace-nowrap p-1 text-sm text-gray-900">{ humidity } %</td>
                     </tr>
                 </tbody>
             </table>
